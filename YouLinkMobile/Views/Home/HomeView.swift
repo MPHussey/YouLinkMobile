@@ -12,14 +12,22 @@ struct HomeView: View {
         QuickAction(image: "hrspace-qa-icon",     title: "HR Space",     hex: "#EB6127"),
         QuickAction(image: "staff-travel-qa-icon",title: "Staff Travel", hex: "#0E9147"),
         QuickAction(image: "medi-cash-qa-icon",   title: "MediCash",     hex: "#D71E43")
-      ]
-
+    ]
+    
     
     // CORRECT: The pager's state MUST be of type `Page`.
     @State private var page: Page = .first()
     
     var items = Array(0..<10)
+    
+    private func safeAreaBottom() -> CGFloat {
+        UIApplication.shared
+            .connectedScenes
+            .compactMap { ($0 as? UIWindowScene)?.windows.first }
+            .first?.safeAreaInsets.bottom ?? 0
+    }
 
+    
     var body: some View {
         VStack(spacing: 0) {
             // Assuming HeaderView is a custom view you have defined elsewhere
@@ -28,23 +36,23 @@ struct HomeView: View {
             ScrollView {
                 VStack {
                     Pager(page: page,
-                             data: items,
-                             id: \.self,
-                             content: { index in
+                          data: items,
+                          id: \.self,
+                          content: { index in
                         Image("slide1")
-                              .resizable()
-                              .scaledToFit()
-                              .frame(width: 370, height: 450)
-                              .clipped()
-                              .cornerRadius(12)
-
-                            
-                        })
+                            .resizable()
+                            .scaledToFit()
+                            .frame(width: 370, height: 450)
+                            .clipped()
+                            .cornerRadius(12)
+                        
+                        
+                    })
                     .singlePagination(ratio: 0.33, sensitivity: .custom(0.2))
-                       .preferredItemSize(CGSize(width: 350, height: 400))
-                       .interactive(rotation: true)
-                           .interactive(scale: 0.7)
-                       .frame(height: 200)
+                    .preferredItemSize(CGSize(width: 350, height: 400))
+                    .interactive(rotation: true)
+                    .interactive(scale: 0.7)
+                    .frame(height: 200)
                     
                     //quick action buttons
                     GeometryReader{ geo in
@@ -91,26 +99,28 @@ struct HomeView: View {
                     
                     //Highlight section
                     HighlightChipView(highlightLinks:vm.highlights)
-                    
+                    //Flight fleet view
+                    FlightFleetView(flightFleetDataset:vm.fleetCardDataset)
                     Spacer()
                     
                 }
+                .padding(.bottom, 80 + safeAreaBottom())
             }
         }
         .ignoresSafeArea(edges: .top)
     }
-
-
+    
+    
 }
 
 
 struct QuickAction {
-  let image: String
-  let title: String
-  let hex: String
-  
-  // Convenience computed property
-  var borderColor: Color { Color(hex: hex) }
+    let image: String
+    let title: String
+    let hex: String
+    
+    // Convenience computed property
+    var borderColor: Color { Color(hex: hex) }
 }
 
 
