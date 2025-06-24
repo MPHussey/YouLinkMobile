@@ -2,6 +2,8 @@ import SwiftUI
 import SwiftUIPager
 
 struct HomeView: View {
+    @StateObject private var vm=HomeViewModel()
+    @State private var featuredLinkSelection: Int?
     // Array of image names for the slider
     let slideImages = ["slide1", "slide1", "slide1"]
     
@@ -81,6 +83,14 @@ struct HomeView: View {
                     }
                     .frame(height:100)
                     .padding(.horizontal,20)
+                    
+                    //featured links
+                    FeaturedLinksView(
+                        links:vm.featuredLinks, selectedIndex: $featuredLinkSelection
+                    )
+                    
+                    //Highlight section
+                    HighlightChipView(highlightLinks:vm.highlights)
                     
                     Spacer()
                     

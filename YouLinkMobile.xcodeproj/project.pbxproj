@@ -9,6 +9,11 @@
 /* Begin PBXBuildFile section */
 		727943EE2E08160A005471C5 /* HeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 727943ED2E08160A005471C5 /* HeaderView.swift */; };
 		727943F32E086795005471C5 /* SwiftUIPager in Frameworks */ = {isa = PBXBuildFile; productRef = 727943F22E086795005471C5 /* SwiftUIPager */; };
+		7279976D2E0A1E3200CBE1C1 /* FeaturedLink.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7279976C2E0A1E3200CBE1C1 /* FeaturedLink.swift */; };
+		7279976F2E0A1EFE00CBE1C1 /* HomeViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7279976E2E0A1EFE00CBE1C1 /* HomeViewModel.swift */; };
+		727997712E0A210F00CBE1C1 /* FeaturedLinksView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 727997702E0A210F00CBE1C1 /* FeaturedLinksView.swift */; };
+		727997752E0A298700CBE1C1 /* HighLight.swift in Sources */ = {isa = PBXBuildFile; fileRef = 727997742E0A298700CBE1C1 /* HighLight.swift */; };
+		727997772E0A2A1E00CBE1C1 /* HighlightChipView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 727997762E0A2A1E00CBE1C1 /* HighlightChipView.swift */; };
 		72AE5E6E2E070FE5001E88D2 /* YouLinkMobileApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 72AE5E6D2E070FE5001E88D2 /* YouLinkMobileApp.swift */; };
 		72AE5E722E070FE7001E88D2 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 72AE5E712E070FE7001E88D2 /* Assets.xcassets */; };
 		72AE5E752E070FE7001E88D2 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 72AE5E742E070FE7001E88D2 /* Preview Assets.xcassets */; };
@@ -41,6 +46,11 @@
 
 /* Begin PBXFileReference section */
 		727943ED2E08160A005471C5 /* HeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HeaderView.swift; sourceTree = "<group>"; };
+		7279976C2E0A1E3200CBE1C1 /* FeaturedLink.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FeaturedLink.swift; sourceTree = "<group>"; };
+		7279976E2E0A1EFE00CBE1C1 /* HomeViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeViewModel.swift; sourceTree = "<group>"; };
+		727997702E0A210F00CBE1C1 /* FeaturedLinksView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FeaturedLinksView.swift; sourceTree = "<group>"; };
+		727997742E0A298700CBE1C1 /* HighLight.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HighLight.swift; sourceTree = "<group>"; };
+		727997762E0A2A1E00CBE1C1 /* HighlightChipView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HighlightChipView.swift; sourceTree = "<group>"; };
 		72AE5E6A2E070FE5001E88D2 /* YouLinkMobile.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = YouLinkMobile.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		72AE5E6D2E070FE5001E88D2 /* YouLinkMobileApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = YouLinkMobileApp.swift; sourceTree = "<group>"; };
 		72AE5E712E070FE7001E88D2 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
@@ -157,6 +167,8 @@
 		72AE5E9D2E0711D7001E88D2 /* Models */ = {
 			isa = PBXGroup;
 			children = (
+				7279976C2E0A1E3200CBE1C1 /* FeaturedLink.swift */,
+				727997742E0A298700CBE1C1 /* HighLight.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -181,6 +193,7 @@
 		72AE5EA02E071215001E88D2 /* ViewModels */ = {
 			isa = PBXGroup;
 			children = (
+				7279976E2E0A1EFE00CBE1C1 /* HomeViewModel.swift */,
 			);
 			path = ViewModels;
 			sourceTree = "<group>";
@@ -189,6 +202,8 @@
 			isa = PBXGroup;
 			children = (
 				727943ED2E08160A005471C5 /* HeaderView.swift */,
+				727997702E0A210F00CBE1C1 /* FeaturedLinksView.swift */,
+				727997762E0A2A1E00CBE1C1 /* HighlightChipView.swift */,
 			);
 			path = Components;
 			sourceTree = "<group>";
@@ -361,9 +376,14 @@
 			buildActionMask = 2147483647;
 			files = (
 				72AE5E772E070FE7001E88D2 /* Persistence.swift in Sources */,
+				7279976F2E0A1EFE00CBE1C1 /* HomeViewModel.swift in Sources */,
 				72AE5E7A2E070FE7001E88D2 /* YouLinkMobile.xcdatamodeld in Sources */,
 				72AE5EA82E0714A8001E88D2 /* HomeView.swift in Sources */,
+				7279976D2E0A1E3200CBE1C1 /* FeaturedLink.swift in Sources */,
+				727997772E0A2A1E00CBE1C1 /* HighlightChipView.swift in Sources */,
+				727997752E0A298700CBE1C1 /* HighLight.swift in Sources */,
 				72AE5E6E2E070FE5001E88D2 /* YouLinkMobileApp.swift in Sources */,
+				727997712E0A210F00CBE1C1 /* FeaturedLinksView.swift in Sources */,
 				72AE5EAA2E071537001E88D2 /* MainTabView.swift in Sources */,
 				72AE5EAC2E0723E9001E88D2 /* Color+Hex.swift in Sources */,
 				727943EE2E08160A005471C5 /* HeaderView.swift in Sources */,
