@@ -1,6 +1,15 @@
 {
-  "originHash" : "7c90314e9c758371149b3a5886dbca23080798791dd62fe4bef92be285729b35",
+  "originHash" : "3c4e28d744b36d84f1972b3ae5b1b8993a3720c770f937edbafebea5dea60471",
   "pins" : [
+    {
+      "identity" : "flagskit",
+      "kind" : "remoteSourceControl",
+      "location" : "https://github.com/pichukov/FlagsKit.git",
+      "state" : {
+        "revision" : "fc98238228d15285eb1b89ec3c5c96c83170101d",
+        "version" : "1.0.0"
+      }
+    },
     {
       "identity" : "swiftuipager",
       "kind" : "remoteSourceControl",

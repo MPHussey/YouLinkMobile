@@ -35,6 +35,7 @@ struct HomeView: View {
             
             ScrollView {
                 VStack {
+                    //main slider
                     Pager(page: page,
                           data: items,
                           id: \.self,
@@ -101,7 +102,8 @@ struct HomeView: View {
                     HighlightChipView(highlightLinks:vm.highlights)
                     //Flight fleet view
                     FlightFleetView(flightFleetDataset:vm.fleetCardDataset)
-                    Spacer()
+                    //currency rates
+                    CurrencyRatesView(rates:vm.currencyRates)
                     
                 }
                 .padding(.bottom, 80 + safeAreaBottom())

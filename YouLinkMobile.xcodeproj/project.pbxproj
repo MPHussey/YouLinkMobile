@@ -9,6 +9,9 @@
 /* Begin PBXBuildFile section */
 		7202BD1F2E0AF8A1004B839A /* FlightInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7202BD1E2E0AF8A1004B839A /* FlightInfo.swift */; };
 		7202BD212E0AFB5F004B839A /* FlightFleetView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7202BD202E0AFB5F004B839A /* FlightFleetView.swift */; };
+		726AAA9F2E0B7B5D00610245 /* FlagsKit in Frameworks */ = {isa = PBXBuildFile; productRef = 726AAA9E2E0B7B5D00610245 /* FlagsKit */; };
+		726AAAA12E0B7BD500610245 /* CurrencyRate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 726AAAA02E0B7BD500610245 /* CurrencyRate.swift */; };
+		726AAAA32E0B7C7C00610245 /* CurrencyRatesView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 726AAAA22E0B7C7C00610245 /* CurrencyRatesView.swift */; };
 		727943EE2E08160A005471C5 /* HeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 727943ED2E08160A005471C5 /* HeaderView.swift */; };
 		727943F32E086795005471C5 /* SwiftUIPager in Frameworks */ = {isa = PBXBuildFile; productRef = 727943F22E086795005471C5 /* SwiftUIPager */; };
 		7279976D2E0A1E3200CBE1C1 /* FeaturedLink.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7279976C2E0A1E3200CBE1C1 /* FeaturedLink.swift */; };
@@ -49,6 +52,8 @@
 /* Begin PBXFileReference section */
 		7202BD1E2E0AF8A1004B839A /* FlightInfo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FlightInfo.swift; sourceTree = "<group>"; };
 		7202BD202E0AFB5F004B839A /* FlightFleetView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FlightFleetView.swift; sourceTree = "<group>"; };
+		726AAAA02E0B7BD500610245 /* CurrencyRate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CurrencyRate.swift; sourceTree = "<group>"; };
+		726AAAA22E0B7C7C00610245 /* CurrencyRatesView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CurrencyRatesView.swift; sourceTree = "<group>"; };
 		727943ED2E08160A005471C5 /* HeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HeaderView.swift; sourceTree = "<group>"; };
 		7279976C2E0A1E3200CBE1C1 /* FeaturedLink.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FeaturedLink.swift; sourceTree = "<group>"; };
 		7279976E2E0A1EFE00CBE1C1 /* HomeViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeViewModel.swift; sourceTree = "<group>"; };
@@ -77,6 +82,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				727943F32E086795005471C5 /* SwiftUIPager in Frameworks */,
+				726AAA9F2E0B7B5D00610245 /* FlagsKit in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -174,6 +180,7 @@
 				7279976C2E0A1E3200CBE1C1 /* FeaturedLink.swift */,
 				727997742E0A298700CBE1C1 /* HighLight.swift */,
 				7202BD1E2E0AF8A1004B839A /* FlightInfo.swift */,
+				726AAAA02E0B7BD500610245 /* CurrencyRate.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -210,6 +217,7 @@
 				727997702E0A210F00CBE1C1 /* FeaturedLinksView.swift */,
 				727997762E0A2A1E00CBE1C1 /* HighlightChipView.swift */,
 				7202BD202E0AFB5F004B839A /* FlightFleetView.swift */,
+				726AAAA22E0B7C7C00610245 /* CurrencyRatesView.swift */,
 			);
 			path = Components;
 			sourceTree = "<group>";
@@ -263,6 +271,7 @@
 			name = YouLinkMobile;
 			packageProductDependencies = (
 				727943F22E086795005471C5 /* SwiftUIPager */,
+				726AAA9E2E0B7B5D00610245 /* FlagsKit */,
 			);
 			productName = YouLinkMobile;
 			productReference = 72AE5E6A2E070FE5001E88D2 /* YouLinkMobile.app */;
@@ -338,6 +347,7 @@
 			mainGroup = 72AE5E612E070FE5001E88D2;
 			packageReferences = (
 				727943F12E086795005471C5 /* XCRemoteSwiftPackageReference "SwiftUIPager" */,
+				726AAA9D2E0B7B5D00610245 /* XCRemoteSwiftPackageReference "FlagsKit" */,
 			);
 			productRefGroup = 72AE5E6B2E070FE5001E88D2 /* Products */;
 			projectDirPath = "";
@@ -385,8 +395,10 @@
 				7202BD1F2E0AF8A1004B839A /* FlightInfo.swift in Sources */,
 				7279976F2E0A1EFE00CBE1C1 /* HomeViewModel.swift in Sources */,
 				72AE5E7A2E070FE7001E88D2 /* YouLinkMobile.xcdatamodeld in Sources */,
+				726AAAA12E0B7BD500610245 /* CurrencyRate.swift in Sources */,
 				72AE5EA82E0714A8001E88D2 /* HomeView.swift in Sources */,
 				7279976D2E0A1E3200CBE1C1 /* FeaturedLink.swift in Sources */,
+				726AAAA32E0B7C7C00610245 /* CurrencyRatesView.swift in Sources */,
 				727997772E0A2A1E00CBE1C1 /* HighlightChipView.swift in Sources */,
 				727997752E0A298700CBE1C1 /* HighLight.swift in Sources */,
 				72AE5E6E2E070FE5001E88D2 /* YouLinkMobileApp.swift in Sources */,
@@ -728,6 +740,14 @@
 /* End XCConfigurationList section */
 
 /* Begin XCRemoteSwiftPackageReference section */
+		726AAA9D2E0B7B5D00610245 /* XCRemoteSwiftPackageReference "FlagsKit" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/pichukov/FlagsKit.git";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 1.0.0;
+			};
+		};
 		727943F12E086795005471C5 /* XCRemoteSwiftPackageReference "SwiftUIPager" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/fermoya/SwiftUIPager";
@@ -739,6 +759,11 @@
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
+		726AAA9E2E0B7B5D00610245 /* FlagsKit */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 726AAA9D2E0B7B5D00610245 /* XCRemoteSwiftPackageReference "FlagsKit" */;
+			productName = FlagsKit;
+		};
 		727943F22E086795005471C5 /* SwiftUIPager */ = {
 			isa = XCSwiftPackageProductDependency;
 			package = 727943F12E086795005471C5 /* XCRemoteSwiftPackageReference "SwiftUIPager" */;

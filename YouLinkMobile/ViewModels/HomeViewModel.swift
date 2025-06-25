@@ -68,6 +68,12 @@ class HomeViewModel:ObservableObject{
             arrivalStatusTime: "10"
         )
     ]
+    
+    @Published var currencyRates: [CurrencyRate] = [
+        .init(currencyCode: "AUD", conversionRate:"179.1814"),
+        .init(currencyCode: "KWD", conversionRate:"870.1864"),
+        .init(currencyCode: "GBP", conversionRate:"300.123"),
+    ]
 
     
     
