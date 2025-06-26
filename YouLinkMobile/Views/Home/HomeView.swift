@@ -104,6 +104,8 @@ struct HomeView: View {
                     FlightFleetView(flightFleetDataset:vm.fleetCardDataset)
                     //currency rates
                     CurrencyRatesView(rates:vm.currencyRates)
+                    //Article view
+                    ArticleView(articles:vm.articles)
                     
                 }
                 .padding(.bottom, 80 + safeAreaBottom())

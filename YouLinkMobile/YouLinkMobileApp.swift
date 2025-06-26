@@ -9,12 +9,22 @@ import SwiftUI
 
 @main
 struct YouLinkMobileApp: App {
+    @StateObject private var auth = AuthViewModel()
     let persistenceController = PersistenceController.shared
 
     var body: some Scene {
         WindowGroup {
-            MainTabView()
-                .environment(\.managedObjectContext, persistenceController.container.viewContext)
+            Group {
+                if auth.isLoggedIn {
+                    MainTabView()
+                        .environment(\.managedObjectContext,
+                                      persistenceController.container.viewContext)
+                } else {
+                    // Otherwise show the login screen
+                    LoginView()
+                }
+            }
+            .environmentObject(auth)
         }
     }
 }

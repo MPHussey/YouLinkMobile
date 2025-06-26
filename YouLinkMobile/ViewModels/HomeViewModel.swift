@@ -74,6 +74,11 @@ class HomeViewModel:ObservableObject{
         .init(currencyCode: "KWD", conversionRate:"870.1864"),
         .init(currencyCode: "GBP", conversionRate:"300.123"),
     ]
+    
+    @Published var articles:[Article]=[
+        Article(date: "10-01-2025", title: "India favours SL for team offsite tour", subHeading: "The Morning"),
+        Article(date: "10-01-2025", title: "India favours SL for team offsite tour", subHeading: "The Morning")
+    ]
 
     
     

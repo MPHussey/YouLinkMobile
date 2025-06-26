@@ -22,7 +22,7 @@ struct MainTabView: View {
                 case .notifications:
                     NavigationStack{Text("Notification View")}
                 case .profile:
-                    NavigationStack{Text("Profile View")}
+                    NavigationStack{ProfileView()}
                 }
             
             }
