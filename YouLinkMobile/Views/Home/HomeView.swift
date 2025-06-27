@@ -36,13 +36,13 @@ struct HomeView: View {
                             .frame(width: 370, height: 450)
                             .clipped()
                             .cornerRadius(12)
-                        
-                        
                     })
+                    .loopPages()
                     .singlePagination(ratio: 0.33, sensitivity: .custom(0.2))
                     .preferredItemSize(CGSize(width: 350, height: 400))
                     .interactive(rotation: true)
                     .interactive(scale: 0.7)
+                    .loopPages()
                     .frame(height: 200)
                     
                     //quick action buttons
