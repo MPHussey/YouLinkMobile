@@ -4,22 +4,12 @@ import SwiftUIPager
 struct HomeView: View {
     @StateObject private var vm=HomeViewModel()
     @State private var featuredLinkSelection: Int?
-    // Array of image names for the slider
-    let slideImages = ["slide1", "slide1", "slide1"]
-    
-    let quickActionButtons = [
-        QuickAction(image: "sara-qa-icon",        title: "SARA",         hex: "#0247A8"),
-        QuickAction(image: "hrspace-qa-icon",     title: "HR Space",     hex: "#EB6127"),
-        QuickAction(image: "staff-travel-qa-icon",title: "Staff Travel", hex: "#0E9147"),
-        QuickAction(image: "medi-cash-qa-icon",   title: "MediCash",     hex: "#D71E43")
-    ]
     
     
     // CORRECT: The pager's state MUST be of type `Page`.
     @State private var page: Page = .first()
     
-    var items = Array(0..<10)
-    
+
     private func safeAreaBottom() -> CGFloat {
         UIApplication.shared
             .connectedScenes
@@ -37,10 +27,10 @@ struct HomeView: View {
                 VStack {
                     //main slider
                     Pager(page: page,
-                          data: items,
-                          id: \.self,
-                          content: { index in
-                        Image("slide1")
+                          data: vm.mainCarouselItems,
+                          id: \.id,
+                          content: { item in
+                        Image(item.image)
                             .resizable()
                             .scaledToFit()
                             .frame(width: 370, height: 450)
@@ -58,11 +48,11 @@ struct HomeView: View {
                     //quick action buttons
                     GeometryReader{ geo in
                         let totalWidth=geo.size.width
-                        let buttonWidth=(totalWidth - 40) / CGFloat(quickActionButtons.count)
+                        let buttonWidth=(totalWidth - 40) / CGFloat(vm.quickButtons.count)
                         let circleSize=buttonWidth * 1
                         
-                        HStack(spacing: (totalWidth - (circleSize * CGFloat(quickActionButtons.count))) / CGFloat(quickActionButtons.count - 1)){
-                            ForEach(quickActionButtons, id: \.title){action in
+                        HStack(spacing: (totalWidth - (circleSize * CGFloat(vm.quickButtons.count))) / CGFloat(vm.quickButtons.count - 1)){
+                            ForEach(vm.quickButtons, id: \.title){action in
                                 VStack(spacing:6){
                                     Button{
                                         

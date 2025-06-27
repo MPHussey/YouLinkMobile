@@ -79,7 +79,20 @@ class HomeViewModel:ObservableObject{
         Article(date: "10-01-2025", title: "India favours SL for team offsite tour", subHeading: "The Morning"),
         Article(date: "10-01-2025", title: "India favours SL for team offsite tour", subHeading: "The Morning")
     ]
-
+    
+    @Published var quickButtons:[FrequentButtons]=[
+        FrequentButtons(title: "SARA", hex: "#0247A8", image:"sara-qa-icon"),
+        FrequentButtons(title: "HR Space", hex: "#EB6127", image:"hrspace-qa-icon"),
+        FrequentButtons(title: "Staff Travel", hex: "#0E9147", image:"staff-travel-qa-icon"),
+        FrequentButtons(title: "medi-cash-qa-icon", hex: "#D71E43", image:"medi-cash-qa-icon")
+    ]
+    
+    @Published var mainCarouselItems:[MainCarousel]=[
+        MainCarousel(image: "slide-1"),
+        MainCarousel(image: "slide-2"),
+        MainCarousel(image: "slide-3")
+    ]
+    
     
     
 }
