@@ -18,7 +18,7 @@ struct MainTabView: View {
                 case .home:
                     NavigationStack{HomeView()}
                 case .chats:
-                    NavigationStack{Text("Chat View")}
+                    NavigationStack{TestView()}
                 case .notifications:
                     NavigationStack{Text("Notification View")}
                 case .profile:

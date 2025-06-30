@@ -69,16 +69,9 @@ class HomeViewModel:ObservableObject{
         )
     ]
     
-    @Published var currencyRates: [CurrencyRate] = [
-        .init(currencyCode: "AUD", conversionRate:"179.1814"),
-        .init(currencyCode: "KWD", conversionRate:"870.1864"),
-        .init(currencyCode: "GBP", conversionRate:"300.123"),
-    ]
+    @Published var currencyRates: [CurrencyRate] = []
     
-    @Published var articles:[Article]=[
-        Article(date: "10-01-2025", title: "India favours SL for team offsite tour", subHeading: "The Morning"),
-        Article(date: "10-01-2025", title: "India favours SL for team offsite tour", subHeading: "The Morning")
-    ]
+    @Published var articles:[Article]=[]
     
     @Published var quickButtons:[FrequentButtons]=[
         FrequentButtons(title: "SARA", hex: "#0247A8", image:"sara-qa-icon"),
@@ -93,6 +86,98 @@ class HomeViewModel:ObservableObject{
         MainCarousel(image: "slide-3")
     ]
     
+    @Published var rawJson: Any?
+    @Published var isLoading = false
+    @Published var errorMessage:String?
     
+    private let homeService = HomeService.shared
+    
+    func getExchangeRates(){
+        let requestBody="{}".data(using:.utf8)
+        
+        homeService.getExchangeRates(bodyData:requestBody){[weak self] result in
+            switch result{
+            case .success(let json):
+                guard let exchangeRateRawData=json as? [[String:Any]] else {
+                    DispatchQueue.main.async {
+                        self?.errorMessage = "Unexpected JSON format"
+                    }
+                    return
+                }
+                let mappedDataset=exchangeRateRawData.compactMap{dict -> CurrencyRate? in
+                    guard
+                        let fromCurrency = dict["from_Currency"] as? String,
+                        let conversionRate = dict["conversion_Rate"] as? Double
+                    else {return nil}
+                    
+                    return CurrencyRate(
+                        currencyCode: fromCurrency,
+                        conversionRate: String(format: "%.4f", conversionRate)
+                    )
+                }
+                DispatchQueue.main.async{
+                    self?.currencyRates=mappedDataset
+                }
+            case .failure(let error):
+                DispatchQueue.main.async {
+                    self?.errorMessage = error.localizedDescription
+                }
+            }
+        }
+    }
+    
+    //get official articles for the current year
+    func getCompanyEvent() {
+        
+        //send empty body
+        let requestBody = "{}".data(using: .utf8)
+        
+        homeService.getCompanyEvent(bodyData: requestBody) { [weak self] result in
+            DispatchQueue.main.async {
+                self?.isLoading = false
+            }
+            switch result {
+            case .success(let json):
+                guard let array = json as? [[String:Any]] else {
+                    DispatchQueue.main.async {
+                        self?.errorMessage = "Unexpected JSON format"
+                    }
+                    return
+                }
+                let mapped = array.compactMap { dict -> Article? in
+                    guard
+                        let heading       = dict["heading"]    as? String,
+                        let subheading    = dict["subheading"] as? String,
+                        let rawDateString = dict["createDateTime"] as? String
+                    else { return nil }
+                    
+                    let inputFormatter = DateFormatter()
+                    inputFormatter.dateFormat    = "yyyy-MM-dd'T'HH:mm:ss"
+                    inputFormatter.locale        = Locale(identifier: "en_US_POSIX")
+                    guard let date = inputFormatter.date(from: rawDateString)
+                    else { return nil }
+                    
+                    let outputFormatter = DateFormatter()
+                    outputFormatter.dateFormat = "dd-MM-yyyy"
+                    let formattedDate = outputFormatter.string(from: date)
+                    
+                    return Article(
+                        date: formattedDate,
+                        title: subheading,
+                        subHeading: heading
+                    )
+                }
+                DispatchQueue.main.async {
+                    self?.articles = mapped
+                }
+            case .failure(let error):
+                DispatchQueue.main.async {
+                    self?.errorMessage = error.localizedDescription
+                }
+            }
+        }
+    }
     
 }
+
+

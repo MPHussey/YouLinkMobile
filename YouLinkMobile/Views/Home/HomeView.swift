@@ -16,9 +16,8 @@ struct HomeView: View {
             .compactMap { ($0 as? UIWindowScene)?.windows.first }
             .first?.safeAreaInsets.bottom ?? 0
     }
-
-    
     var body: some View {
+       
         VStack(spacing: 0) {
             // Assuming HeaderView is a custom view you have defined elsewhere
             HeaderView(staffName: "Hasantha Pathirana", profileImageName: "placeholder")
@@ -102,24 +101,17 @@ struct HomeView: View {
             }
         }
         .ignoresSafeArea(edges: .top)
+        .onAppear(){
+            vm.getCompanyEvent()
+            vm.getExchangeRates()
+        }
     }
     
     
 }
 
 
-struct QuickAction {
-    let image: String
-    let title: String
-    let hex: String
-    
-    // Convenience computed property
-    var borderColor: Color { Color(hex: hex) }
-}
-
 
 #Preview {
-    // You might need to add a placeholder image named "slide1"
-    // to your development assets for the preview to work correctly.
     HomeView()
 }

@@ -11,6 +11,15 @@ struct Article:Identifiable{
     let date:String
     let title:String
     let subHeading:String
-    
-    
 }
+
+struct CompanyEvents{
+    let eventId:String
+    let heading:String
+    let subheading:String
+    let image:String
+    let moreInfoLink:String
+    let createDateTime:String
+}
+
+
