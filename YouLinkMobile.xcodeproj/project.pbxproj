@@ -33,6 +33,8 @@
 		727997712E0A210F00CBE1C1 /* FeaturedLinksView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 727997702E0A210F00CBE1C1 /* FeaturedLinksView.swift */; };
 		727997752E0A298700CBE1C1 /* HighLight.swift in Sources */ = {isa = PBXBuildFile; fileRef = 727997742E0A298700CBE1C1 /* HighLight.swift */; };
 		727997772E0A2A1E00CBE1C1 /* HighlightChipView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 727997762E0A2A1E00CBE1C1 /* HighlightChipView.swift */; };
+		72AE39622E1386AB00AA4F36 /* AuthError.swift in Sources */ = {isa = PBXBuildFile; fileRef = 72AE39612E1386AB00AA4F36 /* AuthError.swift */; };
+		72AE39642E13873A00AA4F36 /* JWTPayload.swift in Sources */ = {isa = PBXBuildFile; fileRef = 72AE39632E13873A00AA4F36 /* JWTPayload.swift */; };
 		72AE5E6E2E070FE5001E88D2 /* YouLinkMobileApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 72AE5E6D2E070FE5001E88D2 /* YouLinkMobileApp.swift */; };
 		72AE5E722E070FE7001E88D2 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 72AE5E712E070FE7001E88D2 /* Assets.xcassets */; };
 		72AE5E752E070FE7001E88D2 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 72AE5E742E070FE7001E88D2 /* Preview Assets.xcassets */; };
@@ -90,6 +92,8 @@
 		727997702E0A210F00CBE1C1 /* FeaturedLinksView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FeaturedLinksView.swift; sourceTree = "<group>"; };
 		727997742E0A298700CBE1C1 /* HighLight.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HighLight.swift; sourceTree = "<group>"; };
 		727997762E0A2A1E00CBE1C1 /* HighlightChipView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HighlightChipView.swift; sourceTree = "<group>"; };
+		72AE39612E1386AB00AA4F36 /* AuthError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthError.swift; sourceTree = "<group>"; };
+		72AE39632E13873A00AA4F36 /* JWTPayload.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JWTPayload.swift; sourceTree = "<group>"; };
 		72AE5E6A2E070FE5001E88D2 /* YouLinkMobile.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = YouLinkMobile.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		72AE5E6D2E070FE5001E88D2 /* YouLinkMobileApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = YouLinkMobileApp.swift; sourceTree = "<group>"; };
 		72AE5E712E070FE7001E88D2 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
@@ -246,6 +250,7 @@
 				726AAAA42E0CB0E000610245 /* Article.swift */,
 				722DE3FB2E0E4D1F00594049 /* FrequentButtons.swift */,
 				722DE3FD2E0E515B00594049 /* MainCarousel.swift */,
+				72AE39632E13873A00AA4F36 /* JWTPayload.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -329,6 +334,7 @@
 			isa = PBXGroup;
 			children = (
 				72FDB2D52E1363680011A2E4 /* KeychainHelper.swift */,
+				72AE39612E1386AB00AA4F36 /* AuthError.swift */,
 			);
 			path = Security;
 			sourceTree = "<group>";
@@ -477,6 +483,7 @@
 				7202BD1F2E0AF8A1004B839A /* FlightInfo.swift in Sources */,
 				722DE4062E0E78A700594049 /* RequestBuilder.swift in Sources */,
 				7279976F2E0A1EFE00CBE1C1 /* HomeViewModel.swift in Sources */,
+				72AE39642E13873A00AA4F36 /* JWTPayload.swift in Sources */,
 				722DE4082E0E838500594049 /* HTTPClient.swift in Sources */,
 				722DE40E2E10F88C00594049 /* TestView.swift in Sources */,
 				72AE5E7A2E070FE7001E88D2 /* YouLinkMobile.xcdatamodeld in Sources */,
@@ -498,6 +505,7 @@
 				722DE40A2E0E84B400594049 /* ApiError.swift in Sources */,
 				722DE3FC2E0E4D1F00594049 /* FrequentButtons.swift in Sources */,
 				722DE3F32E0CC15700594049 /* LoginView.swift in Sources */,
+				72AE39622E1386AB00AA4F36 /* AuthError.swift in Sources */,
 				72FDB2D62E1363680011A2E4 /* KeychainHelper.swift in Sources */,
 				72AE5EAC2E0723E9001E88D2 /* Color+Hex.swift in Sources */,
 				722DE3F82E0CCFCC00594049 /* ProfileView.swift in Sources */,

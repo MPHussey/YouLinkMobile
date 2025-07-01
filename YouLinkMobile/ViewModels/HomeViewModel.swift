@@ -86,6 +86,8 @@ class HomeViewModel:ObservableObject{
         MainCarousel(image: "slide-3")
     ]
     
+    @Published var loggedInUserDetails:JWTPayload? = AuthService.shared.decodePayload()
+    
     @Published var rawJson: Any?
     @Published var isLoading = false
     @Published var errorMessage:String?

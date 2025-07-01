@@ -74,7 +74,7 @@ struct LoginView: View {
                             
                           
                             Button(action: {
-                                auth.logIn()
+                                auth.logIn(staffNumber: username, StaffPassword:password)
                             }) {
                                 Text("Login")
                                     .foregroundColor(.white)

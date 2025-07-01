@@ -20,7 +20,7 @@ struct HomeView: View {
        
         VStack(spacing: 0) {
             // Assuming HeaderView is a custom view you have defined elsewhere
-            HeaderView(staffName: "Hasantha Pathirana", profileImageName: "placeholder")
+            HeaderView(staffName: vm.loggedInUserDetails!.staffName, profileImageName: vm.loggedInUserDetails!.profilephoto)
             
             ScrollView {
                 VStack {

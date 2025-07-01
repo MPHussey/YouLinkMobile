@@ -6,10 +6,11 @@
 //
 
 import SwiftUI
+import UIKit
 
 struct HeaderView: View {
     let staffName:String
-    let profileImageName:String
+    let profileImageName:String?
     
     var body: some View {
         ZStack{
@@ -20,8 +21,8 @@ struct HeaderView: View {
                 .clipped()
             LinearGradient(
                 gradient: Gradient(stops: [
-                      .init(color: Color(hex: "#01285B"), location: 0),
-                      .init(color: Color(hex: "#01285B").opacity(0), location: 0.6)
+                    .init(color: Color(hex: "#01285B"), location: 0),
+                    .init(color: Color(hex: "#01285B").opacity(0), location: 0.6)
                 ]),
                 startPoint: .top,
                 endPoint: .bottom
@@ -46,28 +47,41 @@ struct HeaderView: View {
                     Color.white
                         .frame(width:70, height: 70)
                         .clipShape(
-                          RoundedCorners(radius: 30,
-                                         corners: [.topLeft, .bottomLeft])
+                            RoundedCorners(radius: 30,
+                                           corners: [.topLeft, .bottomLeft])
                         )
-                    Image("sample-user")
-                        .resizable()
-                        .scaledToFill()
-                        .frame(width: 60, height: 60)
-                        .clipShape(Circle())
-                        .overlay(Circle().stroke(Color.white, lineWidth: 2))
-
+                    profileImage
+                    
                 }
-//                Image("sample-user")
-//                    .resizable()
-//                    .scaledToFit()
-//                    .frame(width:60, height:60)
-//                    .clipShape(/*@START_MENU_TOKEN@*/Circle()/*@END_MENU_TOKEN@*/)
-//                    .overlay(Circle().stroke(Color.white, lineWidth: 2))
             }
             .padding(.leading)
-              .padding(.top, safeAreaTop() + 12)
-           
+            .padding(.top, safeAreaTop() + 12)
+            
         }.frame(height: /*@START_MENU_TOKEN@*/100/*@END_MENU_TOKEN@*/ + safeAreaTop())
+    }
+    
+    @ViewBuilder
+    private var profileImage: some View {
+        if let str = profileImageName?
+            .trimmingCharacters(in: .whitespacesAndNewlines),
+           str != "N/A",
+           let data = Data(base64Encoded: str),
+           let uiImage = UIImage(data: data)
+        {
+            Image(uiImage: uiImage)
+                .resizable()
+                .scaledToFill()
+                .frame(width: 60, height: 60)
+                .clipShape(Circle())
+                .overlay(Circle().stroke(Color.white, lineWidth: 2))
+        } else {
+            Image("sample-user")
+                .resizable()
+                .scaledToFill()
+                .frame(width: 60, height: 60)
+                .clipShape(Circle())
+                .overlay(Circle().stroke(Color.white, lineWidth: 2))
+        }
     }
 }
 
@@ -75,7 +89,7 @@ struct HeaderView: View {
 struct RoundedCorners: Shape {
     var radius: CGFloat
     var corners: UIRectCorner
-
+    
     func path(in rect: CGRect) -> Path {
         let path = UIBezierPath(
             roundedRect: rect,
@@ -87,10 +101,10 @@ struct RoundedCorners: Shape {
 }
 
 private func safeAreaTop() -> CGFloat {
-      UIApplication.shared
-          .connectedScenes
-          .compactMap { ($0 as? UIWindowScene)?.windows.first }
-          .first?.safeAreaInsets.top ?? 0
+    UIApplication.shared
+        .connectedScenes
+        .compactMap { ($0 as? UIWindowScene)?.windows.first }
+        .first?.safeAreaInsets.top ?? 0
 }
 
 
