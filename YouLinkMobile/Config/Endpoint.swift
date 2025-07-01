@@ -8,7 +8,7 @@
 import Foundation
 
 enum Endpoint{
-    //deckare endpoint names to use throughout of the applciation
+    //endpoint names to use throughout of the applciation
     case login
     case getAllEvents
     case exchangeRates

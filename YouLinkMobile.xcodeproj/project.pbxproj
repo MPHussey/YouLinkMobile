@@ -44,6 +44,8 @@
 		72AE5EA82E0714A8001E88D2 /* HomeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 72AE5EA72E0714A8001E88D2 /* HomeView.swift */; };
 		72AE5EAA2E071537001E88D2 /* MainTabView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 72AE5EA92E071537001E88D2 /* MainTabView.swift */; };
 		72AE5EAC2E0723E9001E88D2 /* Color+Hex.swift in Sources */ = {isa = PBXBuildFile; fileRef = 72AE5EAB2E0723E9001E88D2 /* Color+Hex.swift */; };
+		72FDB2D22E1362310011A2E4 /* AuthService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 72FDB2D12E1362310011A2E4 /* AuthService.swift */; };
+		72FDB2D62E1363680011A2E4 /* KeychainHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 72FDB2D52E1363680011A2E4 /* KeychainHelper.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -102,6 +104,8 @@
 		72AE5EA72E0714A8001E88D2 /* HomeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeView.swift; sourceTree = "<group>"; };
 		72AE5EA92E071537001E88D2 /* MainTabView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainTabView.swift; sourceTree = "<group>"; };
 		72AE5EAB2E0723E9001E88D2 /* Color+Hex.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Color+Hex.swift"; sourceTree = "<group>"; };
+		72FDB2D12E1362310011A2E4 /* AuthService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthService.swift; sourceTree = "<group>"; };
+		72FDB2D52E1363680011A2E4 /* KeychainHelper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KeychainHelper.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -142,6 +146,7 @@
 		722DE4032E0E780D00594049 /* Core */ = {
 			isa = PBXGroup;
 			children = (
+				72FDB2D42E1363110011A2E4 /* Security */,
 				722DE4042E0E781600594049 /* Network */,
 			);
 			path = Core;
@@ -249,6 +254,7 @@
 			isa = PBXGroup;
 			children = (
 				722DE40B2E0E976900594049 /* HomeService.swift */,
+				72FDB2D12E1362310011A2E4 /* AuthService.swift */,
 			);
 			path = Services;
 			sourceTree = "<group>";
@@ -317,6 +323,14 @@
 				72AE5EA72E0714A8001E88D2 /* HomeView.swift */,
 			);
 			path = Home;
+			sourceTree = "<group>";
+		};
+		72FDB2D42E1363110011A2E4 /* Security */ = {
+			isa = PBXGroup;
+			children = (
+				72FDB2D52E1363680011A2E4 /* KeychainHelper.swift */,
+			);
+			path = Security;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -458,6 +472,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				722DE3F52E0CCC1200594049 /* AuthViewModel.swift in Sources */,
+				72FDB2D22E1362310011A2E4 /* AuthService.swift in Sources */,
 				72AE5E772E070FE7001E88D2 /* Persistence.swift in Sources */,
 				7202BD1F2E0AF8A1004B839A /* FlightInfo.swift in Sources */,
 				722DE4062E0E78A700594049 /* RequestBuilder.swift in Sources */,
@@ -483,6 +498,7 @@
 				722DE40A2E0E84B400594049 /* ApiError.swift in Sources */,
 				722DE3FC2E0E4D1F00594049 /* FrequentButtons.swift in Sources */,
 				722DE3F32E0CC15700594049 /* LoginView.swift in Sources */,
+				72FDB2D62E1363680011A2E4 /* KeychainHelper.swift in Sources */,
 				72AE5EAC2E0723E9001E88D2 /* Color+Hex.swift in Sources */,
 				722DE3F82E0CCFCC00594049 /* ProfileView.swift in Sources */,
 				727943EE2E08160A005471C5 /* HeaderView.swift in Sources */,
