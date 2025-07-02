@@ -171,6 +171,8 @@ struct ProfileView: View {
                 .resizable()
                 .scaledToFill()
                 .frame(width:72, height:72)
+                .clipShape(Circle())
+                .overlay(Circle().stroke(Color.white, lineWidth: 2))
             //                .clipShape(Circle())
             //                .overlay(Circle().stroke(Color.white, lineWidth: 2))
             
@@ -185,6 +187,8 @@ struct ProfileView: View {
                 .resizable()
                 .scaledToFill()
                 .frame(width:72, height:72)
+                .clipShape(Circle())
+                .overlay(Circle().stroke(Color.white, lineWidth: 2))
             //                .clipShape(Circle())
             //                .overlay(Circle().stroke(Color.white, lineWidth: 2))
         }

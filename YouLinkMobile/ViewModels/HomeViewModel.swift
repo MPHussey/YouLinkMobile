@@ -22,51 +22,55 @@ class HomeViewModel:ObservableObject{
         HighLight(title: "IT Support")
     ]
     
+    //Early -> #00914a
+    //Delay ->  -> #ff0404
+    //OnTime -> #00639c
+    
     @Published var fleetCardDataset: [FlightInfo] = [
-        FlightInfo(
-            flightNumber: "UL101",
-            callSign: "A33-ALN",
-            departureDate: "12 Jun 2025 22:22",
-            departureCode: "CMB",
-            departureStatus: "OnTime",
-            departureStatusTime: "0",
-            arrivalCode: "DXB",
-            arrivalStatus: "Delay",
-            arrivalStatusTime: "20"
-        ),
-        FlightInfo(
-            flightNumber: "UL229",
-            callSign: "A33-ALN",
-            departureDate: "12 Jun 2025 22:22",
-            departureCode: "CMB",
-            departureStatus: "Delay",
-            departureStatusTime: "15",
-            arrivalCode: "SIN",
-            arrivalStatus: "OnTime",
-            arrivalStatusTime: "0"
-        ),
-        FlightInfo(
-            flightNumber: "UL305",
-            callSign: "A33-ALN",
-            departureDate: "12 Jun 2025 22:22",
-            departureCode: "CMB",
-            departureStatus: "Early",
-            departureStatusTime: "5",
-            arrivalCode: "BKK",
-            arrivalStatus: "OnTime",
-            arrivalStatusTime: "0"
-        ),
-        FlightInfo(
-            flightNumber: "UL503",
-            callSign: "A33-ALN",
-            departureDate: "12 Jun 2025 22:22",
-            departureCode: "CMB",
-            departureStatus: "OnTime",
-            departureStatusTime: "0",
-            arrivalCode: "LHR",
-            arrivalStatus: "Early",
-            arrivalStatusTime: "10"
-        )
+//        FlightInfo(
+//            flightNumber: "UL101",
+//            callSign: "A33-ALN",
+//            departureDate: "12 Jun 2025 22:22",
+//            departureCode: "CMB",
+//            departureStatus: "OnTime",
+//            departureStatusTime: "0",
+//            arrivalCode: "DXB",
+//            arrivalStatus: "Delay",
+//            arrivalStatusTime: "20"
+//        ),
+//        FlightInfo(
+//            flightNumber: "UL229",
+//            callSign: "A33-ALN",
+//            departureDate: "12 Jun 2025 22:22",
+//            departureCode: "CMB",
+//            departureStatus: "Delay",
+//            departureStatusTime: "15",
+//            arrivalCode: "SIN",
+//            arrivalStatus: "OnTime",
+//            arrivalStatusTime: "0"
+//        ),
+//        FlightInfo(
+//            flightNumber: "UL305",
+//            callSign: "A33-ALN",
+//            departureDate: "12 Jun 2025 22:22",
+//            departureCode: "CMB",
+//            departureStatus: "Early",
+//            departureStatusTime: "5",
+//            arrivalCode: "BKK",
+//            arrivalStatus: "OnTime",
+//            arrivalStatusTime: "0"
+//        ),
+//        FlightInfo(
+//            flightNumber: "UL503",
+//            callSign: "A33-ALN",
+//            departureDate: "12 Jun 2025 22:22",
+//            departureCode: "CMB",
+//            departureStatus: "OnTime",
+//            departureStatusTime: "0",
+//            arrivalCode: "LHR",
+//            arrivalStatus: "Early",
+//            arrivalStatusTime: "10"
+//        )
     ]
     
     @Published var currencyRates: [CurrencyRate] = []
@@ -93,6 +97,134 @@ class HomeViewModel:ObservableObject{
     @Published var errorMessage:String?
     
     private let homeService = HomeService.shared
+    
+    func getFlightInformation(){
+        
+        //get the from and to values relative to current datetime
+        let now = Date()
+        let formatter = DateFormatter()
+        formatter.dateFormat = "yyyy-MM-dd HH:mm"
+        formatter.locale = Locale(identifier: "en_US_POSIX")
+        
+        // subtract 13 hours
+        let fromDate = Calendar.current.date(
+            byAdding: .hour, value: -13, to: now
+        )!
+        // add 12 hours
+        let toDate   = Calendar.current.date(
+            byAdding: .hour, value: 12, to: now
+        )!
+        
+        let fromString = formatter.string(from: fromDate)
+        let toString   = formatter.string(from: toDate)
+        
+        // Build the JSON payload
+        let payload: [String:String] = [
+            "From": fromString,
+            "To":   toString
+        ]
+        
+        //convert it into a json string
+        let bodyData = try? JSONSerialization
+            .data(withJSONObject: payload, options: [])
+        
+        homeService.getFlightInformation(bodyData:bodyData){[weak self] result in
+            switch result{
+            case .success(let rawData):
+                guard
+                    let dict = rawData as? [String:Any],
+                    let rawArray = dict["data"] as? [[String:Any]]
+                else {
+                    DispatchQueue.main.async {
+                        self?.errorMessage = "Unexpected JSON format"
+                    }
+                    return
+                }
+                
+                let utcFmt = DateFormatter()
+                utcFmt.dateFormat = "yyyy-MM-dd HH.mm.ss"
+                utcFmt.locale     = Locale(identifier: "en_US_POSIX")
+                utcFmt.timeZone   = TimeZone(abbreviation: "UTC")
+                
+                let outFmt = DateFormatter()
+                outFmt.dateFormat = "d MMM yyyy HH:mm"
+                outFmt.locale     = Locale(identifier: "en_US_POSIX")
+                
+                let mapped: [FlightInfo] = rawArray.compactMap{ flightDict in
+                    guard
+                        let rawCallSign = flightDict["AC"] as? String,
+                        !rawCallSign.contains("XXXX")
+                    else { return nil }
+                    
+                    guard
+                        let flightNumber = (flightDict["FLTID"] as? String)?
+                            .replacingOccurrences(of: " ", with: ""),
+                        let callSign     = flightDict["AC"]       as? String,
+                        let depCode      = flightDict["DEPSTN"]   as? String,
+                        let arrCode      = flightDict["ARRSTN"]   as? String,
+                        let stdUTC       = flightDict["STD_UTC"]  as? String,
+                        let atdUTC       = flightDict["ATD_UTC"]  as? String,
+                        let staUTC       = flightDict["STA_UTC"]  as? String,
+                        let ataUTC       = flightDict["ATA_UTC"]  as? String,
+                        let stdDate      = utcFmt.date(from: stdUTC),
+                        let atdDate      = utcFmt.date(from: atdUTC),
+                        let staDate      = utcFmt.date(from: staUTC),
+                        let ataDate      = utcFmt.date(from: ataUTC)
+                    else{
+                        return nil
+                    }
+                    
+                    // departure delay in minutes
+                    let depDiff  = Int(atdDate.timeIntervalSince(stdDate) / 60)
+                    let depStatus: String
+                    if depDiff < 0 {
+                        depStatus = "Early"
+                    } else if depDiff == 0 || depDiff < 15 {
+                        depStatus = "OnTime"
+                    } else {
+                        depStatus = "Delay"
+                    }
+                    let depTimeStr = String(abs(depDiff))
+                    
+                    // arrival delay in minutes
+                    let arrDiff  = Int(ataDate.timeIntervalSince(staDate) / 60)
+                    let arrStatus: String
+                    if arrDiff < 0 {
+                        arrStatus = "Early"
+                    } else if arrDiff == 0 || arrDiff < 15 {
+                        arrStatus = "OnTime"
+                    } else {
+                        arrStatus = "Delay"
+                    }
+                    let arrTimeStr = String(abs(arrDiff))
+                    
+                    // formatted departure date for display
+                    let departureDisplay = outFmt.string(from: stdDate)
+                    
+                    return FlightInfo(
+                        flightNumber:     flightNumber,
+                        callSign:         callSign,
+                        departureDate:    departureDisplay,
+                        departureCode:    depCode,
+                        departureStatus:  depStatus,
+                        departureStatusTime: depTimeStr,
+                        arrivalCode:      arrCode,
+                        arrivalStatus:    arrStatus,
+                        arrivalStatusTime:   arrTimeStr
+                    )
+                        
+                }
+                DispatchQueue.main.async {
+                    self?.fleetCardDataset = mapped
+                }
+                
+            case .failure(let error):
+                DispatchQueue.main.async {
+                    self?.errorMessage = error.localizedDescription
+                }
+            }
+        }
+    }
     
     func getExchangeRates(){
         let requestBody="{}".data(using:.utf8)

@@ -41,7 +41,6 @@ struct HomeView: View {
                     .preferredItemSize(CGSize(width: 350, height: 400))
                     .interactive(rotation: true)
                     .interactive(scale: 0.7)
-                    .loopPages()
                     .frame(height: 200)
                     
                     //quick action buttons
@@ -104,6 +103,7 @@ struct HomeView: View {
         .onAppear(){
             vm.getCompanyEvent()
             vm.getExchangeRates()
+            vm.getFlightInformation()
         }
     }
     

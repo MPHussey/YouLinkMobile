@@ -85,10 +85,10 @@ struct FlightFleetView: View {
                             .bold()
                         Text(f.departureStatus)
                             .font(.caption)
-                            .foregroundColor(.blue)
+                            .foregroundColor(f.departureColor)
                         Text("(\(f.departureStatusTime)min)")
                             .font(.caption)
-                            .foregroundColor(.blue)
+                            .foregroundColor(f.departureColor)
                     }
                     Spacer()
                     // Connector with dots, lines, and airplane
@@ -125,10 +125,10 @@ struct FlightFleetView: View {
                             .bold()
                         Text(f.arrivalStatus)
                             .font(.caption)
-                            .foregroundColor(.blue)
+                            .foregroundColor(f.arrivalColor)
                         Text("(\(f.arrivalStatusTime)min)")
                             .font(.caption)
-                            .foregroundColor(.blue)
+                            .foregroundColor(f.arrivalColor)
                     }
                 }
             }

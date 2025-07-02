@@ -12,6 +12,7 @@ enum Endpoint{
     case login
     case getAllEvents
     case exchangeRates
+    case getFlightInfo
     
     //bind endpoint name with real endpoints
     var path:String{
@@ -19,10 +20,11 @@ enum Endpoint{
         case .login: return "YouLinkAPI/api/Auth/login"
         case .getAllEvents: return "YouLinkAPI/api/Event/GetAllEvents"
         case .exchangeRates: return "YouLinkAPI/api/ExchangeRates/ExchangeRates"
+        case .getFlightInfo: return "CMB_FlightInfoAll_API/api/FlightSchedule/GetFlights"
         }
     }
     
-    //define bypass requests
+    //define bypass authentication requests
     var requiresAuth:Bool{
         switch self{
         default : return false
@@ -32,6 +34,7 @@ enum Endpoint{
     //define require api-key or not
     var requiresApirKey:Bool{
         switch self{
+        case .getFlightInfo : return true
         default : return false
         }
     }

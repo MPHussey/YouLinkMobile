@@ -35,5 +35,17 @@ class HomeService{
             )
         }
     
+    
+    //get flight infomation
+    func getFlightInformation(
+        bodyData: Data? = nil,
+        completion:@escaping (Result<Any, Error>)->Void){
+            HTTPClient.shared.sendRawJSON(
+                endpoint: .getFlightInfo,
+                bodyData: bodyData,
+                completion:completion
+            )
+        }
+    
 }
 
