@@ -108,6 +108,6 @@ private func safeAreaTop() -> CGFloat {
 }
 
 
-#Preview {
-    HeaderView(staffName:"Hasantha Pathirana", profileImageName:"Image")
-}
+//#Preview {
+//    HeaderView(staffName:"Hasantha Pathirana", profileImageName:"Image")
+//}

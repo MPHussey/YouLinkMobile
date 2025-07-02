@@ -9,6 +9,7 @@ import SwiftUI
 
 struct ProfileView: View {
     @EnvironmentObject private var auth: AuthViewModel
+    @StateObject private var vm = ProfileViewModel()
     
     let fullName = "James Syahir (25222)"
     let role     = "SOFTWARE DEVELOPMENT MANAGER"
@@ -48,7 +49,7 @@ struct ProfileView: View {
                             
                             VStack(spacing: 8) {
                                 Spacer().frame(height: 40)
-                                Text(fullName)
+                                Text("\(vm.loggedInUserDetails!.staffName) (\(vm.loggedInUserDetails!.staffNumber))")
                                     .font(.headline)
                                     .multilineTextAlignment(.center)
                                 Text(role)
@@ -73,11 +74,12 @@ struct ProfileView: View {
                                     .frame(width: 80, height: 80)
                                     .shadow(color: .black.opacity(0.1),
                                             radius: 4, x: 0, y: 2)
-                                Image("bg-profile-pic")
-                                    .resizable()
-                                    .scaledToFill()
-                                    .frame(width: 72, height: 72)
-                                    .clipShape(Circle())
+                                profileImage
+                                //                                Image("bg-profile-pic")
+                                //                                    .resizable()
+                                //                                    .scaledToFill()
+                                //                                    .frame(width: 72, height: 72)
+                                //                                    .clipShape(Circle())
                             }
                             .offset(y: -40)
                         }
@@ -104,7 +106,7 @@ struct ProfileView: View {
                                        color: .green)
                             
                             Button("Apply Leave") {
-                               
+                                
                             }
                             .font(.headline)
                             .frame(maxWidth: .infinity)
@@ -155,6 +157,38 @@ struct ProfileView: View {
                 .frame(height: 6)
         }
     }
+    
+    
+    @ViewBuilder
+    private var profileImage: some View {
+        if let str = vm.loggedInUserDetails?.profilephoto
+            .trimmingCharacters(in: .whitespacesAndNewlines),
+           str != "N/A",
+           let data = Data(base64Encoded: str),
+           let uiImage = UIImage(data: data)
+        {
+            Image(uiImage: uiImage)
+                .resizable()
+                .scaledToFill()
+                .frame(width:72, height:72)
+            //                .clipShape(Circle())
+            //                .overlay(Circle().stroke(Color.white, lineWidth: 2))
+            
+            
+            //            Image("bg-profile-pic")
+            //                .resizable()
+            //                .scaledToFill()
+            //                .frame(width: 72, height: 72)
+            //                .clipShape(Circle())
+        } else {
+            Image("sample-user")
+                .resizable()
+                .scaledToFill()
+                .frame(width:72, height:72)
+            //                .clipShape(Circle())
+            //                .overlay(Circle().stroke(Color.white, lineWidth: 2))
+        }
+    }
 }
 
 
@@ -175,6 +209,6 @@ struct BalanceBar: View {
     }
 }
 
-#Preview {
-    ProfileView()
-}
+//#Preview {
+//    ProfileView()
+//}
