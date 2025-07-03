@@ -22,6 +22,7 @@
 		722DE40C2E0E976900594049 /* HomeService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 722DE40B2E0E976900594049 /* HomeService.swift */; };
 		722DE40E2E10F88C00594049 /* TestView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 722DE40D2E10F88C00594049 /* TestView.swift */; };
 		7258EB742E14B612005956FB /* ProfileViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7258EB732E14B612005956FB /* ProfileViewModel.swift */; };
+		725F744D2E16046D00A757F6 /* KeyboardUtil.swift in Sources */ = {isa = PBXBuildFile; fileRef = 725F744C2E16046D00A757F6 /* KeyboardUtil.swift */; };
 		726AAA9F2E0B7B5D00610245 /* FlagsKit in Frameworks */ = {isa = PBXBuildFile; productRef = 726AAA9E2E0B7B5D00610245 /* FlagsKit */; };
 		726AAAA12E0B7BD500610245 /* CurrencyRate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 726AAAA02E0B7BD500610245 /* CurrencyRate.swift */; };
 		726AAAA32E0B7C7C00610245 /* CurrencyRatesView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 726AAAA22E0B7C7C00610245 /* CurrencyRatesView.swift */; };
@@ -84,6 +85,7 @@
 		722DE40B2E0E976900594049 /* HomeService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeService.swift; sourceTree = "<group>"; };
 		722DE40D2E10F88C00594049 /* TestView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TestView.swift; sourceTree = "<group>"; };
 		7258EB732E14B612005956FB /* ProfileViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileViewModel.swift; sourceTree = "<group>"; };
+		725F744C2E16046D00A757F6 /* KeyboardUtil.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KeyboardUtil.swift; sourceTree = "<group>"; };
 		726AAAA02E0B7BD500610245 /* CurrencyRate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CurrencyRate.swift; sourceTree = "<group>"; };
 		726AAAA22E0B7C7C00610245 /* CurrencyRatesView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CurrencyRatesView.swift; sourceTree = "<group>"; };
 		726AAAA42E0CB0E000610245 /* Article.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Article.swift; sourceTree = "<group>"; };
@@ -238,6 +240,7 @@
 				72AE5EAB2E0723E9001E88D2 /* Color+Hex.swift */,
 				722DE3FF2E0E6BF300594049 /* NetworkConfig.swift */,
 				722DE4012E0E743700594049 /* Endpoint.swift */,
+				725F744C2E16046D00A757F6 /* KeyboardUtil.swift */,
 			);
 			path = Config;
 			sourceTree = "<group>";
@@ -488,6 +491,7 @@
 				7279976F2E0A1EFE00CBE1C1 /* HomeViewModel.swift in Sources */,
 				72AE39642E13873A00AA4F36 /* JWTPayload.swift in Sources */,
 				722DE4082E0E838500594049 /* HTTPClient.swift in Sources */,
+				725F744D2E16046D00A757F6 /* KeyboardUtil.swift in Sources */,
 				722DE40E2E10F88C00594049 /* TestView.swift in Sources */,
 				72AE5E7A2E070FE7001E88D2 /* YouLinkMobile.xcdatamodeld in Sources */,
 				726AAAA12E0B7BD500610245 /* CurrencyRate.swift in Sources */,

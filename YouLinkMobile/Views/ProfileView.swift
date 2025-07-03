@@ -12,8 +12,8 @@ struct ProfileView: View {
     @StateObject private var vm = ProfileViewModel()
     
     let fullName = "James Syahir (25222)"
-    let role     = "SOFTWARE DEVELOPMENT MANAGER"
-    let phone    = "1234"
+    let role     = "Designation"
+    let phone    = "163556"
     
     let annual   = (used: 2, total: 21)
     let medical  = (used: 5, total: 7)

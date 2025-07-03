@@ -14,7 +14,7 @@ struct LoginView: View {
     var body: some View {
         GeometryReader { geo in
             ZStack {
-               
+                
                 VStack(spacing: 0) {
                     Image("login-bg")
                         .resizable()
@@ -30,9 +30,9 @@ struct LoginView: View {
                 VStack {
                     Spacer()
                     
-                   
+                    
                     ZStack(alignment: .top) {
-                      
+                        
                         RoundedRectangle(cornerRadius: 16)
                             .fill(Color.white)
                             .shadow(color: .black.opacity(0.1),
@@ -40,7 +40,7 @@ struct LoginView: View {
                         
                         
                         VStack(spacing: 24) {
-                          
+                            
                             Spacer().frame(height: 50)
                             
                             // Title + subtitle
@@ -53,7 +53,7 @@ struct LoginView: View {
                                 .scaledToFit()
                                 .frame(height: 13)
                             
-                        
+                            
                             VStack(spacing: 16) {
                                 HStack {
                                     Image(systemName: "person")
@@ -72,17 +72,29 @@ struct LoginView: View {
                             }
                             .padding(.horizontal, 24)
                             
-                          
+                            
                             Button(action: {
-                                auth.logIn(staffNumber: username, StaffPassword:password)
+                                UIApplication.shared.endEditing()
+                                auth.logIn(staffNumber: username, staffPassword:password)
                             }) {
-                                Text("Login")
-                                    .foregroundColor(.white)
-                                    .font(.headline)
-                                    .frame(maxWidth: .infinity)
-                                    .padding()
-                                    .background(Color(hex: "#176EBC"))
-                                    .cornerRadius(8)
+                                if(auth.isLoading){
+                                    ProgressView()
+                                        .foregroundColor(.white)
+                                        .progressViewStyle( CircularProgressViewStyle(tint: .white))
+                                        .frame(maxWidth: .infinity)
+                                        .padding()
+                                        .background(Color(hex: "#176EBC"))
+                                        .cornerRadius(8)
+                                }else{
+                                    Text("Login")
+                                        .foregroundColor(.white)
+                                        .font(.headline)
+                                        .frame(maxWidth: .infinity)
+                                        .padding()
+                                        .background(Color(hex: "#176EBC"))
+                                        .cornerRadius(8)
+                                }
+                                
                             }
                             .padding(.horizontal, 24)
                             
@@ -91,7 +103,7 @@ struct LoginView: View {
                         .fixedSize(horizontal: false, vertical: true)
                         .padding(.bottom, 24)
                         
-                      
+                        
                         ZStack {
                             Circle()
                                 .fill(Color.white)
@@ -103,7 +115,7 @@ struct LoginView: View {
                                 .scaledToFit()
                                 .frame(width: 80, height: 80)
                         }
-                       
+                        
                         .offset(y: -50)
                     }
                     .frame(width: geo.size.width * 0.85)
@@ -127,9 +139,13 @@ struct LoginView: View {
                 .ignoresSafeArea(edges: .bottom)
             }
         }
+        .alert("Login Failed",
+               isPresented: .constant(auth.errorMessage != nil),
+               actions: { Button("OK") { auth.errorMessage = nil } },
+               message: { Text(auth.errorMessage ?? "") })
     }
 }
 
-#Preview {
-    LoginView()
-}
+//#Preview {
+//    LoginView()
+//}
