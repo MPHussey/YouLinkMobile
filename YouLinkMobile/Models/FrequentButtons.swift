@@ -13,6 +13,7 @@ struct FrequentButtons:Identifiable {
     let title:String
     let hex:String
     let image:String
+    let redirectUrl:String
     
     var borderColor:Color{Color(hex: hex)}
 }

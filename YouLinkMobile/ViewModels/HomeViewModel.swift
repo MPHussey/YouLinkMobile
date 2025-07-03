@@ -78,10 +78,10 @@ class HomeViewModel:ObservableObject{
     @Published var articles:[Article]=[]
     
     @Published var quickButtons:[FrequentButtons]=[
-        FrequentButtons(title: "SARA", hex: "#0247A8", image:"sara-qa-icon"),
-        FrequentButtons(title: "HR Space", hex: "#EB6127", image:"hrspace-qa-icon"),
-        FrequentButtons(title: "Staff Travel", hex: "#0E9147", image:"staff-travel-qa-icon"),
-        FrequentButtons(title: "medi-cash-qa-icon", hex: "#D71E43", image:"medi-cash-qa-icon")
+        FrequentButtons(title: "SARA", hex: "#0247A8", image:"sara-qa-icon",redirectUrl: "https://saraapp.srilankan.com/ux/myitapp/#/catalog/home"),
+        FrequentButtons(title: "HR Space", hex: "#EB6127", image:"hrspace-qa-icon",redirectUrl: "https://youlink.srilankan.com/sites/HR/"),
+        FrequentButtons(title: "Staff Travel", hex: "#0E9147", image:"staff-travel-qa-icon",redirectUrl: "https://stafftravel.srilankan.com/"),
+        FrequentButtons(title: "MediCash", hex: "#D71E43", image:"medi-cash-qa-icon",redirectUrl: "https://intraneti.srilankan.com/medicash/login.asp")
     ]
     
     @Published var mainCarouselItems:[MainCarousel]=[

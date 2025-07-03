@@ -4,7 +4,7 @@ import SwiftUIPager
 struct HomeView: View {
     @StateObject private var vm=HomeViewModel()
     @State private var featuredLinkSelection: Int?
-    
+    @Environment(\.openURL) private var openURL
     
     // CORRECT: The pager's state MUST be of type `Page`.
     @State private var page: Page = .first()
@@ -53,7 +53,9 @@ struct HomeView: View {
                             ForEach(vm.quickButtons, id: \.title){action in
                                 VStack(spacing:6){
                                     Button{
-                                        
+                                        if let url = URL(string: action.redirectUrl) {
+                                            openURL(url)
+                                        }
                                     } label: {
                                         Image(action.image)
                                             .resizable()
