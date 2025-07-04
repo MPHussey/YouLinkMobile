@@ -9,4 +9,5 @@ import Foundation
 struct HighLight:Identifiable{
     let id = UUID()
     let title: String
+    let redirectUrl:String
 }

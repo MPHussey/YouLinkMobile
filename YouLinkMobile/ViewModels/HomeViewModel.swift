@@ -9,17 +9,17 @@ import SwiftUI
 
 class HomeViewModel:ObservableObject{
     @Published var featuredLinks:[FeaturedLink]=[
-        .init(image: "bia-flight-icon", title:"BIA Flights"),
-        .init(image: "safty-icon", title: "Safty"),
-        .init(image: "crisis-management-icon", title: "Crisis Management")
+        .init(image: "bia-flight-icon", title:"BIA Flights",redirectUrl: "https://www.airport.lk/"),
+        .init(image: "safty-icon", title: "Safty",redirectUrl: "https://youlink.srilankan.com/SafetyInformationCentre"),
+        .init(image: "crisis-management-icon", title: "Crisis Management",redirectUrl: "https://intraneti.srilankan.com/eruoneworld/index.html")
     ]
     
     @Published var highlights:[HighLight] = [
-        HighLight(title: "Company Holidays"),
-        HighLight(title: "SVN"),
-        HighLight(title: "Employee Manuals"),
-        HighLight(title: "Travel Policy"),
-        HighLight(title: "IT Support")
+        HighLight(title: "Company Holidays",redirectUrl: "https://youlink.srilankan.com/Corporate-Information/Lists/ULCalendar/calendar.aspx"),
+        HighLight(title: "SVN",redirectUrl: "https://intraneti.srilankan.com/svn/"),
+        HighLight(title: "Employee Manuals",redirectUrl:"https://youlink.srilankan.com/Pages/Corporate-Policies.aspx"),
+        HighLight(title: "Travel Policy",redirectUrl: "https://stafftravel.srilankan.com/"),
+        HighLight(title: "IT Support",redirectUrl: "https://youlink.srilankan.com/sites/IT/")
     ]
     
     //Early -> #00914a
@@ -27,50 +27,6 @@ class HomeViewModel:ObservableObject{
     //OnTime -> #00639c
     
     @Published var fleetCardDataset: [FlightInfo] = [
-//        FlightInfo(
-//            flightNumber: "UL101",
-//            callSign: "A33-ALN",
-//            departureDate: "12 Jun 2025 22:22",
-//            departureCode: "CMB",
-//            departureStatus: "OnTime",
-//            departureStatusTime: "0",
-//            arrivalCode: "DXB",
-//            arrivalStatus: "Delay",
-//            arrivalStatusTime: "20"
-//        ),
-//        FlightInfo(
-//            flightNumber: "UL229",
-//            callSign: "A33-ALN",
-//            departureDate: "12 Jun 2025 22:22",
-//            departureCode: "CMB",
-//            departureStatus: "Delay",
-//            departureStatusTime: "15",
-//            arrivalCode: "SIN",
-//            arrivalStatus: "OnTime",
-//            arrivalStatusTime: "0"
-//        ),
-//        FlightInfo(
-//            flightNumber: "UL305",
-//            callSign: "A33-ALN",
-//            departureDate: "12 Jun 2025 22:22",
-//            departureCode: "CMB",
-//            departureStatus: "Early",
-//            departureStatusTime: "5",
-//            arrivalCode: "BKK",
-//            arrivalStatus: "OnTime",
-//            arrivalStatusTime: "0"
-//        ),
-//        FlightInfo(
-//            flightNumber: "UL503",
-//            callSign: "A33-ALN",
-//            departureDate: "12 Jun 2025 22:22",
-//            departureCode: "CMB",
-//            departureStatus: "OnTime",
-//            departureStatusTime: "0",
-//            arrivalCode: "LHR",
-//            arrivalStatus: "Early",
-//            arrivalStatusTime: "10"
-//        )
     ]
     
     @Published var currencyRates: [CurrencyRate] = []
@@ -97,6 +53,7 @@ class HomeViewModel:ObservableObject{
     @Published var errorMessage:String?
     
     private let homeService = HomeService.shared
+    
     
     func getFlightInformation(){
         
