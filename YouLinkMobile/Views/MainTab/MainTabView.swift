@@ -10,6 +10,7 @@ import SwiftUI
 struct MainTabView: View {
     enum Tab{case home,chats,notifications,profile}
     @State private var selected:Tab = .home;
+    @State private var isShowingCenterMenu = false;
     
     var body: some View {
         ZStack{
@@ -29,16 +30,23 @@ struct MainTabView: View {
             .frame(maxWidth:.infinity,maxHeight: .infinity)
             VStack{
                 Spacer()
-                CustomTabBar(selected: $selected)
+                CustomTabBar(
+                    selected: $selected,
+                    showCenterMenu: $isShowingCenterMenu
+                )
             }
         }
         .edgesIgnoringSafeArea(.bottom)
+        .fullScreenCover(isPresented: $isShowingCenterMenu) {
+            CenterMenuView(isPresented: $isShowingCenterMenu)
+        }
     }
 }
 
 
 struct CustomTabBar: View {
   @Binding var selected: MainTabView.Tab
+    @Binding var showCenterMenu: Bool
 
   var body: some View {
     ZStack {
@@ -61,6 +69,7 @@ struct CustomTabBar: View {
       // Center logo
       Button {
         // handle tap if needed
+          showCenterMenu = true
       } label: {
         Image("bottom-nav-logo") // add "YourLogo" asset in Assets.xcassets
           .resizable()
