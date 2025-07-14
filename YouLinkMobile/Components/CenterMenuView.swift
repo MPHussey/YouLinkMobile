@@ -10,10 +10,18 @@ import SwiftUI
 struct CenterMenuView: View {
     @Binding var isPresented: Bool
     
+    @StateObject private var vm = CenterMenuViewModel()
+    @Environment(\.openURL) private var openURL
     // Track which sections are expanded
     @State private var expandApplications = false
     @State private var expandCorporate   = false
     @State private var expandDivisions   = false
+    
+    private let sectionOrder: [(key: String, title: String)] = [
+        ("applications", "Applications"),
+        ("corporate",    "Corporate Information"),
+        ("divisions",    "Divisions")
+    ]
     
     var body: some View {
         ZStack{
@@ -36,62 +44,48 @@ struct CenterMenuView: View {
                        maxHeight: .infinity,
                        alignment: .bottomTrailing)
             
-            VStack(spacing: 24){
-                // Close button
-                HStack {
-                    Spacer()
-                    Button {
-                        isPresented = false
-                    } label: {
+            VStack(spacing: 24) {
+                HStack { Spacer()
+                    Button { isPresented = false } label: {
                         Image(systemName: "xmark")
-                            .foregroundColor(.white)
                             .font(.title2)
+                            .foregroundColor(.white)
                             .padding()
                     }
                 }
                 
-                // Expandable list
                 ScrollView {
-                    VStack {
-                        SectionView(
-                            title: "Applications",
-                            isExpanded: $expandApplications
-                        ) {
-                            // These are your real items—just indent them a bit
-                            VStack(alignment: .leading, spacing: 8) {
-                                Text("AeroOps")
-                                Text("ARD - Intranet")
-                                Text("AQRS (GHDR)")
-                                // …etc…
+                    VStack(alignment: .leading, spacing: 16) {
+                        ForEach(sectionOrder, id: \.key) { section in
+                            // pull out the items array
+                            if let items = vm.menuData[section.key] {
+                                SectionView(
+                                    title: section.title,
+                                    isExpanded: Binding(
+                                        get: { vm.isExpanded(sectionKey: section.key) },
+                                        set: { _ in vm.toggle(sectionKey: section.key) }
+                                    )
+                                ) {
+                                    // iterate your actual links
+                                    ForEach(items) { item in
+                                        Button {
+                                            if let url = URL(string: item.url) {
+                                                openURL(url)
+                                            }
+                                        } label: {
+                                            Text(item.label)
+                                                .font(.subheadline)
+                                                .foregroundColor(.white)
+                                                .padding(.vertical, 4)
+                                        }
+                                        .buttonStyle(.plain)
+                                    }
+                                }
                             }
-                            .padding(.leading, 12)
-                        }
-                        
-                        SectionView(
-                            title: "Corporate Information",
-                            isExpanded: $expandCorporate
-                        ) {
-                            VStack(alignment: .leading, spacing: 8) {
-                                Text("About Us")
-                                Text("Mission & Vision")
-                            }
-                            .padding(.leading, 12)
-                        }
-                        
-                        SectionView(
-                            title: "Divisions",
-                            isExpanded: $expandDivisions
-                        ) {
-                            VStack(alignment: .leading, spacing: 8) {
-                                Text("HR")
-                                Text("Engineering")
-                            }
-                            .padding(.leading, 12)
                         }
                     }
                     .padding(.horizontal, 20)
                 }
-                // push everything up if it doesn’t fill
                 Spacer()
             }
             .foregroundColor(.white)

@@ -35,7 +35,9 @@
 		727997712E0A210F00CBE1C1 /* FeaturedLinksView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 727997702E0A210F00CBE1C1 /* FeaturedLinksView.swift */; };
 		727997752E0A298700CBE1C1 /* HighLight.swift in Sources */ = {isa = PBXBuildFile; fileRef = 727997742E0A298700CBE1C1 /* HighLight.swift */; };
 		727997772E0A2A1E00CBE1C1 /* HighlightChipView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 727997762E0A2A1E00CBE1C1 /* HighlightChipView.swift */; };
+		727E4E6E2E221166003A25E9 /* CenterMenuViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 727E4E6D2E221166003A25E9 /* CenterMenuViewModel.swift */; };
 		72AC5C772E1DED9400ABFC29 /* CenterMenuView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 72AC5C762E1DED9400ABFC29 /* CenterMenuView.swift */; };
+		72AC5C792E1E65C900ABFC29 /* CenterMenuUrl.swift in Sources */ = {isa = PBXBuildFile; fileRef = 72AC5C782E1E65C900ABFC29 /* CenterMenuUrl.swift */; };
 		72AE39622E1386AB00AA4F36 /* AuthError.swift in Sources */ = {isa = PBXBuildFile; fileRef = 72AE39612E1386AB00AA4F36 /* AuthError.swift */; };
 		72AE39642E13873A00AA4F36 /* JWTPayload.swift in Sources */ = {isa = PBXBuildFile; fileRef = 72AE39632E13873A00AA4F36 /* JWTPayload.swift */; };
 		72AE5E6E2E070FE5001E88D2 /* YouLinkMobileApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 72AE5E6D2E070FE5001E88D2 /* YouLinkMobileApp.swift */; };
@@ -97,7 +99,9 @@
 		727997702E0A210F00CBE1C1 /* FeaturedLinksView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FeaturedLinksView.swift; sourceTree = "<group>"; };
 		727997742E0A298700CBE1C1 /* HighLight.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HighLight.swift; sourceTree = "<group>"; };
 		727997762E0A2A1E00CBE1C1 /* HighlightChipView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HighlightChipView.swift; sourceTree = "<group>"; };
+		727E4E6D2E221166003A25E9 /* CenterMenuViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CenterMenuViewModel.swift; sourceTree = "<group>"; };
 		72AC5C762E1DED9400ABFC29 /* CenterMenuView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CenterMenuView.swift; sourceTree = "<group>"; };
+		72AC5C782E1E65C900ABFC29 /* CenterMenuUrl.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CenterMenuUrl.swift; sourceTree = "<group>"; };
 		72AE39612E1386AB00AA4F36 /* AuthError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthError.swift; sourceTree = "<group>"; };
 		72AE39632E13873A00AA4F36 /* JWTPayload.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JWTPayload.swift; sourceTree = "<group>"; };
 		72AE5E6A2E070FE5001E88D2 /* YouLinkMobile.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = YouLinkMobile.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -258,6 +262,7 @@
 				722DE3FB2E0E4D1F00594049 /* FrequentButtons.swift */,
 				722DE3FD2E0E515B00594049 /* MainCarousel.swift */,
 				72AE39632E13873A00AA4F36 /* JWTPayload.swift */,
+				72AC5C782E1E65C900ABFC29 /* CenterMenuUrl.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -288,6 +293,7 @@
 				7279976E2E0A1EFE00CBE1C1 /* HomeViewModel.swift */,
 				722DE3F42E0CCC1200594049 /* AuthViewModel.swift */,
 				7258EB732E14B612005956FB /* ProfileViewModel.swift */,
+				727E4E6D2E221166003A25E9 /* CenterMenuViewModel.swift */,
 			);
 			path = ViewModels;
 			sourceTree = "<group>";
@@ -502,6 +508,7 @@
 				72AE5EA82E0714A8001E88D2 /* HomeView.swift in Sources */,
 				7279976D2E0A1E3200CBE1C1 /* FeaturedLink.swift in Sources */,
 				726AAAA72E0CB20B00610245 /* ArticleView.swift in Sources */,
+				727E4E6E2E221166003A25E9 /* CenterMenuViewModel.swift in Sources */,
 				726AAAA32E0B7C7C00610245 /* CurrencyRatesView.swift in Sources */,
 				722DE40C2E0E976900594049 /* HomeService.swift in Sources */,
 				727997772E0A2A1E00CBE1C1 /* HighlightChipView.swift in Sources */,
@@ -515,6 +522,7 @@
 				726AAAA52E0CB0E000610245 /* Article.swift in Sources */,
 				722DE40A2E0E84B400594049 /* ApiError.swift in Sources */,
 				722DE3FC2E0E4D1F00594049 /* FrequentButtons.swift in Sources */,
+				72AC5C792E1E65C900ABFC29 /* CenterMenuUrl.swift in Sources */,
 				722DE3F32E0CC15700594049 /* LoginView.swift in Sources */,
 				72AE39622E1386AB00AA4F36 /* AuthError.swift in Sources */,
 				72FDB2D62E1363680011A2E4 /* KeychainHelper.swift in Sources */,
