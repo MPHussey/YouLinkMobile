@@ -20,11 +20,12 @@ struct YouLinkMobileApp: App {
                         .environment(\.managedObjectContext,
                                       persistenceController.container.viewContext)
                 } else {
-                    // Otherwise show the login screen
+                
                     LoginView()
                 }
             }
             .environmentObject(auth)
+            .preferredColorScheme(.light)
         }
     }
 }
