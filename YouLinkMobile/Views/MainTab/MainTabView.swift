@@ -71,7 +71,7 @@ struct CustomTabBar: View {
         // handle tap if needed
           showCenterMenu = true
       } label: {
-        Image("bottom-nav-logo") // add "YourLogo" asset in Assets.xcassets
+        Image("bottom-nav-logo")
           .resizable()
           .scaledToFit()
           .frame(width: 40, height: 40)
