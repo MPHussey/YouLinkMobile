@@ -8,6 +8,8 @@
 import SwiftUI
 
 struct FlightFleetView: View {
+    @Environment(\.openURL) private var openURL
+    
     let flightFleetDataset:[FlightInfo]
     
     var body: some View {
@@ -17,7 +19,9 @@ struct FlightFleetView: View {
                     .font(.headline)
                 Spacer()
                 Button("i-Fleet"){
-                    
+                    if let url = URL(string:"http://intraneti.srilankan.com/ifv") {
+                        openURL(url)
+                    }
                 }
                 .font(.subheadline)
             }
