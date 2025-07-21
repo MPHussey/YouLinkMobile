@@ -11,7 +11,12 @@ class HomeViewModel:ObservableObject{
     @Published var featuredLinks:[FeaturedLink]=[
         .init(image: "bia-flight-icon", title:"BIA Flights",redirectUrl: "https://www.airport.lk/"),
         .init(image: "safty-icon", title: "Safty",redirectUrl: "https://youlink.srilankan.com/SafetyInformationCentre"),
-        .init(image: "crisis-management-icon", title: "Crisis Management",redirectUrl: "https://intraneti.srilankan.com/eruoneworld/index.html")
+        .init(image: "crisis-management-icon", title: "Crisis Management",redirectUrl: "https://intraneti.srilankan.com/eruoneworld/index.html"),
+        .init(image: "nivahana-icon", title: "Nivahana",redirectUrl: "https://intraneti.srilankan.com/welfare_society/FullCalendar/Index/B002"),
+        .init(image: "welfare-icon", title: "Welfare",redirectUrl: "https://intraneti.srilankan.com/welfare_society/Home/index"),
+        .init(image: "magazine-icon", title: "Magazine",redirectUrl: "https://youlink.srilankan.com/News/Pages/Magazines.aspx"),
+        .init(image: "monara-icon", title: "Monara",redirectUrl: "https://youlink.srilankan.com/Corporate-Information/Pages/Monara.aspx"),
+        
     ]
     
     @Published var highlights:[HighLight] = [
