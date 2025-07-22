@@ -1,5 +1,6 @@
 import SwiftUI
 import SwiftUIPager
+import ACarousel
 
 struct HomeView: View {
     @StateObject private var vm=HomeViewModel()
@@ -8,8 +9,9 @@ struct HomeView: View {
     
     // CORRECT: The pager's state MUST be of type `Page`.
     @State private var page: Page = .first()
+    @State private var currentIndex: Int = 1
     
-
+    
     private func safeAreaBottom() -> CGFloat {
         UIApplication.shared
             .connectedScenes
@@ -17,31 +19,31 @@ struct HomeView: View {
             .first?.safeAreaInsets.bottom ?? 0
     }
     var body: some View {
-       
+        
         VStack(spacing: 0) {
             // Assuming HeaderView is a custom view you have defined elsewhere
             HeaderView(staffName: vm.loggedInUserDetails!.staffName, profileImageName: vm.loggedInUserDetails!.profilephoto)
             
             ScrollView {
                 VStack {
-                    //main slider
-                    Pager(page: page,
-                          data: vm.mainCarouselItems,
-                          id: \.id,
-                          content: { item in
+                    
+                    ACarousel(vm.mainCarouselItems,
+                              id: \.id,
+                              index: $currentIndex,
+                              spacing: 30,
+                              headspace: 10,
+                              sidesScaling: 0.7,
+                              isWrap: true,
+                              autoScroll: .active(8)) { item in
                         Image(item.image)
                             .resizable()
                             .scaledToFit()
                             .frame(width: 370, height: 450)
-                            .clipped()
+                        
                             .cornerRadius(12)
-                    })
-                    .loopPages()
-                    .singlePagination(ratio: 0.33, sensitivity: .custom(0.2))
-                    .preferredItemSize(CGSize(width: 350, height: 400))
-                    .interactive(rotation: true)
-                    .interactive(scale: 0.7)
-                    .frame(height: 200)
+                    }
+                              .frame(height: 200)
+                    
                     
                     //quick action buttons
                     GeometryReader{ geo in
