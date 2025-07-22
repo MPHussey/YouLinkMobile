@@ -51,6 +51,7 @@
 		72AE5EA82E0714A8001E88D2 /* HomeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 72AE5EA72E0714A8001E88D2 /* HomeView.swift */; };
 		72AE5EAA2E071537001E88D2 /* MainTabView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 72AE5EA92E071537001E88D2 /* MainTabView.swift */; };
 		72AE5EAC2E0723E9001E88D2 /* Color+Hex.swift in Sources */ = {isa = PBXBuildFile; fileRef = 72AE5EAB2E0723E9001E88D2 /* Color+Hex.swift */; };
+		72CE80A12E2F047C008F7BBA /* ACarousel in Frameworks */ = {isa = PBXBuildFile; productRef = 72CE80A02E2F047C008F7BBA /* ACarousel */; };
 		72FDB2D22E1362310011A2E4 /* AuthService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 72FDB2D12E1362310011A2E4 /* AuthService.swift */; };
 		72FDB2D62E1363680011A2E4 /* KeychainHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 72FDB2D52E1363680011A2E4 /* KeychainHelper.swift */; };
 /* End PBXBuildFile section */
@@ -128,6 +129,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				727943F32E086795005471C5 /* SwiftUIPager in Frameworks */,
+				72CE80A12E2F047C008F7BBA /* ACarousel in Frameworks */,
 				726AAA9F2E0B7B5D00610245 /* FlagsKit in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -373,6 +375,7 @@
 			packageProductDependencies = (
 				727943F22E086795005471C5 /* SwiftUIPager */,
 				726AAA9E2E0B7B5D00610245 /* FlagsKit */,
+				72CE80A02E2F047C008F7BBA /* ACarousel */,
 			);
 			productName = YouLinkMobile;
 			productReference = 72AE5E6A2E070FE5001E88D2 /* YouLinkMobile.app */;
@@ -449,6 +452,7 @@
 			packageReferences = (
 				727943F12E086795005471C5 /* XCRemoteSwiftPackageReference "SwiftUIPager" */,
 				726AAA9D2E0B7B5D00610245 /* XCRemoteSwiftPackageReference "FlagsKit" */,
+				72CE809F2E2F047C008F7BBA /* XCRemoteSwiftPackageReference "ACarousel" */,
 			);
 			productRefGroup = 72AE5E6B2E070FE5001E88D2 /* Products */;
 			projectDirPath = "";
@@ -880,6 +884,14 @@
 				minimumVersion = 2.5.0;
 			};
 		};
+		72CE809F2E2F047C008F7BBA /* XCRemoteSwiftPackageReference "ACarousel" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/JWAutumn/ACarousel";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 0.2.0;
+			};
+		};
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
@@ -892,6 +904,11 @@
 			isa = XCSwiftPackageProductDependency;
 			package = 727943F12E086795005471C5 /* XCRemoteSwiftPackageReference "SwiftUIPager" */;
 			productName = SwiftUIPager;
+		};
+		72CE80A02E2F047C008F7BBA /* ACarousel */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 72CE809F2E2F047C008F7BBA /* XCRemoteSwiftPackageReference "ACarousel" */;
+			productName = ACarousel;
 		};
 /* End XCSwiftPackageProductDependency section */
 
