@@ -11,6 +11,7 @@ import UIKit
 struct HeaderView: View {
     let staffName:String
     let profileImageName:String?
+    var onProfileTap: () -> Void
     
     var body: some View {
         ZStack{
@@ -43,16 +44,26 @@ struct HeaderView: View {
                         .foregroundColor(.white)
                 }
                 Spacer()
-                ZStack{
-                    Color.white
-                        .frame(width:70, height: 70)
-                        .clipShape(
-                            RoundedCorners(radius: 30,
-                                           corners: [.topLeft, .bottomLeft])
-                        )
-                    profileImage
-                    
+                Button(action: onProfileTap) {
+                    ZStack{
+                        Color.white
+                            .frame(width:70, height: 70)
+                            .clipShape(
+                                RoundedCorners(radius: 30, corners: [.topLeft, .bottomLeft])
+                            )
+                        profileImage
+                    }
                 }
+//                ZStack{
+//                    Color.white
+//                        .frame(width:70, height: 70)
+//                        .clipShape(
+//                            RoundedCorners(radius: 30,
+//                                           corners: [.topLeft, .bottomLeft])
+//                        )
+//                    profileImage
+//                    
+//                }
             }
             .padding(.leading)
             .padding(.top, safeAreaTop() + 12)

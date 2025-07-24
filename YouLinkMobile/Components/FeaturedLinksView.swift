@@ -10,6 +10,7 @@ import SwiftUI
 struct FeaturedLinksView: View {
     let links: [FeaturedLink]
     @Binding var selectedIndex: Int?
+    @Binding var btnViewAll:Bool
     @Environment(\.openURL) private var openURL
     
     var body: some View {
@@ -19,7 +20,7 @@ struct FeaturedLinksView: View {
                     .font(.headline)
                 Spacer()
                 Button("View All"){
-                    
+                    btnViewAll=true
                 }
                 .font(.subheadline)
             }

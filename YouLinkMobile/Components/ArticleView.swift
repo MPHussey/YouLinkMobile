@@ -26,7 +26,7 @@ struct ArticleView: View {
     
     var body: some View {
         VStack(alignment:.leading,spacing:8){
-            Text("Official Articles of \(String(Calendar.current.component(.year, from: Date())))")
+            Text("Media Releases \(String(Calendar.current.component(.year, from: Date())))")
                 .font(.headline)
                 .padding(.horizontal, 20)
             ScrollView(.horizontal, showsIndicators: false){

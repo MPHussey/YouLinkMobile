@@ -11,13 +11,16 @@ struct MainTabView: View {
     enum Tab{case home,chats,notifications,profile}
     @State private var selected:Tab = .home;
     @State private var isShowingCenterMenu = false;
+    @State private var isViewAllFeaturesDialogboxOpen = false;
     
     var body: some View {
         ZStack{
             Group{
                 switch selected {
                 case .home:
-                    NavigationStack{HomeView()}
+                    NavigationStack{
+                        HomeView(viewAllFeaturesStatus:$isViewAllFeaturesDialogboxOpen,selectedTab:$selected)
+                    }
                 case .chats:
                     NavigationStack{TestView()}
                 case .notifications:
@@ -34,6 +37,15 @@ struct MainTabView: View {
                     selected: $selected,
                     showCenterMenu: $isShowingCenterMenu
                 )
+            }
+            if isViewAllFeaturesDialogboxOpen{
+                Color.black.opacity(0.5)
+                    .edgesIgnoringSafeArea(/*@START_MENU_TOKEN@*/.all/*@END_MENU_TOKEN@*/)
+                    .onTapGesture {
+                        withAnimation{
+                            isViewAllFeaturesDialogboxOpen=false
+                        }
+                    }
             }
         }
         .edgesIgnoringSafeArea(.bottom)
