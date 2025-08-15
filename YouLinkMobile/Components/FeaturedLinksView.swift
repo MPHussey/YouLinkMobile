@@ -53,8 +53,9 @@ struct FeaturedLinksView: View {
                                     .fill(
                                         LinearGradient(
                                             gradient: Gradient(colors: [
-                                                Color(hex:"#004598"),
-                                                Color(hex:"#001C4B")
+                                                Color(hex:"#002456"),
+                                                Color(hex:"#005CBF"),
+                                                Color(hex:"#0074D9")
                                             ]),
                                             startPoint: .topLeading,
                                             endPoint: .bottomTrailing

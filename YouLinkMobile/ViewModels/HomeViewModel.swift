@@ -19,6 +19,25 @@ class HomeViewModel:ObservableObject{
         
     ]
     
+    @Published var featuredDialogboxLinks:[FeaturedLink] = [
+        .init(image: "monara-dialogbox", title: "Monara", redirectUrl: "https://test-url.com/monara"),
+        .init(image: "it-complaints-dialogbox", title: "IT Complaints", redirectUrl: "https://test-url.com/it-complaints"),
+        .init(image: "pef-dialogbox", title: "PEF", redirectUrl: "https://test-url.com/pef"),
+        .init(image: "pif-dialogbox", title: "PIF", redirectUrl: "https://test-url.com/pif"),
+        .init(image: "destination-dialogbox", title: "Destination", redirectUrl: "https://test-url.com/destination"),
+        .init(image: "magazines-dialogbox", title: "Magazines", redirectUrl: "https://test-url.com/magazines"),
+        .init(image: "eworld-dialogbox", title: "E-World", redirectUrl: "https://test-url.com/eworld"),
+        .init(image: "ask-know-dialogbox", title: "Ask Know", redirectUrl: "https://test-url.com/ask-know"),
+        .init(image: "welfare-dialogbox", title: "Welfare", redirectUrl: "https://test-url.com/welfare"),
+        .init(image: "integrity-committee-dialogbox", title: "Integrity Committee", redirectUrl: "https://test-url.com/integrity-committee"),
+        .init(image: "nivahana-dialogbox", title: "Nivahana", redirectUrl: "https://test-url.com/nivahana"),
+        .init(image: "profile-image-dialogbox", title: "Profile Image", redirectUrl: "https://test-url.com/profile-image"),
+        .init(image: "crisis-mamagment-dialogbox", title: "Crisis Management", redirectUrl: "https://test-url.com/crisis-management"),
+        .init(image: "safty-dialogbox", title: "Safety", redirectUrl: "https://test-url.com/safety"),
+        .init(image: "bia-flight-dialogbox", title: "BIA Flight", redirectUrl: "https://test-url.com/bia-flight")
+    ]
+
+    
     @Published var highlights:[HighLight] = [
         HighLight(title: "Company Holidays",redirectUrl: "https://youlink.srilankan.com/Corporate-Information/Lists/ULCalendar/calendar.aspx"),
         HighLight(title: "SVN",redirectUrl: "https://intraneti.srilankan.com/svn/"),

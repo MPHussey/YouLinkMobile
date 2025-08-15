@@ -63,20 +63,30 @@ struct CustomTabBar: View {
   var body: some View {
     ZStack {
       // Background
-      Rectangle()
-            .fill(Color(hex:"#05497B"))
-        .frame(height: 90)
-        .shadow(radius: 2)
+//      Rectangle()
+//            .fill(Color(hex:"#05497B"))
+//        .frame(height: 90)
+//        .shadow(radius: 2)
+       
+        CenterInwardCurve(notchWidth: 120, notchDepth: 33, shoulder: 20)
+            .fill(Color(hex: "#05497B"))
+            .frame(height: 80)
+            .shadow(radius: 2)
 
-        HStack(spacing:25) {
+
+        HStack() {
+        Spacer()
         tabItem(.home,"home-reg-icon","Home")
-        tabItem(.chats,"chat-reg-icon","Chats")
-        Spacer(minLength: 0)
+        Spacer()
+        Spacer()
+        Spacer()
+        //tabItem(.chats,"chat-reg-icon","Chats")
         tabItem(.notifications,"notification-reg-icon","Notifications", badge: 2)
-        tabItem(.profile,"profile-reg-icon","Profile")
+        Spacer()
+        //tabItem(.profile,"profile-reg-icon","Profile")
       }
       .padding(.horizontal, 30)
-      .frame(height: 60)
+      .frame(height: 75)
 
       // Center logo
       Button {
@@ -92,7 +102,7 @@ struct CustomTabBar: View {
           .clipShape(Circle())
           .shadow(radius: 4)
       }
-      .offset(y: -40)
+      .offset(y: -58)
     }
   }
 
@@ -138,3 +148,76 @@ struct CustomTabBar: View {
 //       MainTabView()
 //     }
 //   }
+
+
+
+struct CenterInwardCurve: Shape {
+    var notchWidth: CGFloat = 120      // horizontal span of the dip
+    var notchDepth: CGFloat = 30       // how far it dips down
+    var shoulder: CGFloat = 20         // how "rounded" the entry/exit is
+    
+    // animate any of these nicely
+    var animatableData: AnimatablePair<
+        AnimatablePair<CGFloat, CGFloat>, CGFloat
+    > {
+        get { AnimatablePair(AnimatablePair(notchWidth, notchDepth), shoulder) }
+        set {
+            notchWidth = newValue.first.first
+            notchDepth = newValue.first.second
+            shoulder = newValue.second
+        }
+    }
+    
+    func path(in rect: CGRect) -> Path {
+        var path = Path()
+        
+        let yTop = rect.minY
+        let yBottom = rect.maxY
+        let cx = rect.midX
+        
+        // Clamp geometry so it never breaks outside the rect
+        let width = min(notchWidth, rect.width - 2)
+        let depth = max(0, min(notchDepth, rect.height))
+        let leftX  = max(rect.minX, cx - width / 2)
+        let rightX = min(rect.maxX, cx + width / 2)
+        
+        // Shoulder cannot exceed half-width of notch
+        let sMax = max(0, width / 2 - 1)
+        let s = max(0, min(shoulder, sMax))
+        
+        // Control point offsets.
+        // c1 keeps tangent horizontal at the edge (y = yTop).
+        // c2 shapes the belly of the dip; tweak ratios for taste.
+        let c1 = s              // how far we pull along X from the edge
+        let c2 = max(s, width/4) // how far from center we shape the bottom curve
+        
+        path.move(to: CGPoint(x: rect.minX, y: yTop))
+        
+        // Left straight segment to notch start
+        path.addLine(to: CGPoint(x: leftX, y: yTop))
+        
+        // Left half of the dip (cubic Bézier)
+        path.addCurve(
+            to: CGPoint(x: cx, y: yTop + depth),
+            control1: CGPoint(x: leftX + c1, y: yTop),           // horizontal tangent out of the top edge
+            control2: CGPoint(x: cx - c2,  y: yTop + depth)      // shapes the belly
+        )
+        
+        // Right half of the dip (mirror)
+        path.addCurve(
+            to: CGPoint(x: rightX, y: yTop),
+            control1: CGPoint(x: cx + c2,  y: yTop + depth),     // shapes the belly
+            control2: CGPoint(x: rightX - c1, y: yTop)           // horizontal tangent into the top edge
+        )
+        
+        // Finish rectangle
+        path.addLine(to: CGPoint(x: rect.maxX, y: yTop))
+        path.addLine(to: CGPoint(x: rect.maxX, y: yBottom))
+        path.addLine(to: CGPoint(x: rect.minX, y: yBottom))
+        path.closeSubpath()
+        
+        return path
+    }
+}
+
+
