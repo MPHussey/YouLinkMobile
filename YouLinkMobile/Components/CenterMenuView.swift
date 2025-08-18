@@ -27,8 +27,8 @@ struct CenterMenuView: View {
         ZStack{
             LinearGradient(
                 gradient: Gradient(colors: [
-                    Color(hex: "#01285B"),
-                    Color(hex: "#000E3F")
+                    Color(hex: "#041629"),
+                    Color(hex: "#0D4D8F")
                 ]),
                 startPoint: .top,
                 endPoint: .bottom
@@ -38,7 +38,7 @@ struct CenterMenuView: View {
             Image("center-tab-bg")
                 .resizable()
                 .scaledToFit()
-                .frame(width: 200)              // adjust to taste
+                .frame(width: 200)
                 .opacity(0.2)
                 .frame(maxWidth: .infinity,
                        maxHeight: .infinity,
