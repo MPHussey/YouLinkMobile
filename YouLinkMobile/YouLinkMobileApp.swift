@@ -25,7 +25,7 @@ struct YouLinkMobileApp: App {
                 }
             }
             .environmentObject(auth)
-            .preferredColorScheme(.light)
+            //.preferredColorScheme(.light)
         }
     }
 }

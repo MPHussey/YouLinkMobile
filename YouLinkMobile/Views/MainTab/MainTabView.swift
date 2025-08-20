@@ -28,7 +28,7 @@ struct MainTabView: View {
                 case .profile:
                     NavigationStack{ProfileView()}
                 }
-            
+                
             }
             .frame(maxWidth:.infinity,maxHeight: .infinity)
             VStack{
@@ -57,91 +57,92 @@ struct MainTabView: View {
 
 
 struct CustomTabBar: View {
-  @Binding var selected: MainTabView.Tab
+    @Binding var selected: MainTabView.Tab
     @Binding var showCenterMenu: Bool
-
-  var body: some View {
-    ZStack {
-      // Background
-//      Rectangle()
-//            .fill(Color(hex:"#05497B"))
-//        .frame(height: 90)
-//        .shadow(radius: 2)
-       
-        CenterInwardCurve(notchWidth: 120, notchDepth: 33, shoulder: 20)
-            .fill(Color(hex: "#05497B"))
-            .frame(height: 80)
-            .shadow(radius: 2)
-
-
-        HStack() {
-        Spacer()
-        tabItem(.home,"home-reg-icon","Home")
-        Spacer()
-        Spacer()
-        Spacer()
-        //tabItem(.chats,"chat-reg-icon","Chats")
-        tabItem(.notifications,"notification-reg-icon","Notifications", badge: 2)
-        Spacer()
-        //tabItem(.profile,"profile-reg-icon","Profile")
-      }
-      .padding(.horizontal, 30)
-      .frame(height: 75)
-
-      // Center logo
-      Button {
-        // handle tap if needed
-          showCenterMenu = true
-      } label: {
-        Image("bottom-nav-logo")
-          .resizable()
-          .scaledToFit()
-          .frame(width: 40, height: 40)
-          .padding(20)
-          .background(Color.white)
-          .clipShape(Circle())
-          .shadow(radius: 4)
-      }
-      .offset(y: -58)
+    
+    var body: some View {
+        ZStack {
+            // Background
+            //      Rectangle()
+            //            .fill(Color(hex:"#05497B"))
+            //        .frame(height: 90)
+            //        .shadow(radius: 2)
+            
+            CenterInwardCurve(notchWidth: 120, notchDepth: 33, shoulder: 20)
+                .fill(Color(hex: "#05497B"))
+                .frame(height: 80)
+                .shadow(radius: 2)
+            
+            
+            HStack() {
+                VStack{
+                    tabItem(.home,"home-reg-icon","Home")
+                }
+                .frame(maxWidth:.infinity)
+                VStack {
+                    tabItem(.notifications,"notification-reg-icon","Notifications")
+                }
+                .frame(maxWidth: .infinity)
+                //                tabItem(.home,"home-reg-icon","Home")
+                //                tabItem(.notifications,"notification-reg-icon","Notifications", badge: 2)
+            }
+            .padding(.horizontal, 30)
+            .frame(height: 75)
+            
+            // Center logo
+            Button {
+                // handle tap if needed
+                showCenterMenu = true
+            } label: {
+                Image("bottom-nav-logo")
+                    .resizable()
+                    .scaledToFit()
+                    .frame(width: 40, height: 40)
+                    .padding(20)
+                    .background(Color.white)
+                    .clipShape(Circle())
+                    .shadow(radius: 4)
+            }
+            .offset(y: -58)
+        }
     }
-  }
-
-
+    
+    
     @ViewBuilder
-     private func tabItem(
-       _ tab: MainTabView.Tab,
-       _ imageName: String,
-       _ title: String,
-       badge: Int? = nil
-     ) -> some View {
-       Button {
-         selected = tab
-       } label: {
-         VStack(spacing: 4) {
-           ZStack(alignment: .topTrailing) {
-             Image(imageName)
-                   .resizable()
-                   .renderingMode(/*@START_MENU_TOKEN@*/.template/*@END_MENU_TOKEN@*/)
-                   .foregroundColor(selected == tab ? .white: .gray )
-                   .frame(width:27,height:25)
-
-             if let count = badge, count > 0 {
-               Text("\(count)")
-                 .font(.caption2)
-                 .foregroundColor(.white)
-                 .padding(4)
-                 .background(Color.red)
-                 .clipShape(Circle())
-                 .offset(x: 8, y: -8)
-             }
-           }
-           Text(title)
-                 .font(.system(size:12))
-             .foregroundColor(selected == tab ? .white : .gray)
-         }
-       }
-     }
-   }
+    private func tabItem(
+        _ tab: MainTabView.Tab,
+        _ imageName: String,
+        _ title: String,
+        badge: Int? = nil
+    ) -> some View {
+        Button {
+            selected = tab
+        } label: {
+            VStack(spacing: 4) {
+                ZStack(alignment: .topTrailing) {
+                    Image(imageName)
+                        .resizable()
+                        .renderingMode(/*@START_MENU_TOKEN@*/.template/*@END_MENU_TOKEN@*/)
+                        .foregroundColor(selected == tab ? .white: .gray )
+                        .frame(width:27,height:25)
+                    
+                    if let count = badge, count > 0 {
+                        Text("\(count)")
+                            .font(.caption2)
+                            .foregroundColor(.white)
+                            .padding(4)
+                            .background(Color.red)
+                            .clipShape(Circle())
+                            .offset(x: 8, y: -8)
+                    }
+                }
+                Text(title)
+                    .font(.system(size:12))
+                    .foregroundColor(selected == tab ? .white : .gray)
+            }
+        }
+    }
+}
 
 //   struct MainTabView_Previews: PreviewProvider {
 //     static var previews: some View {
