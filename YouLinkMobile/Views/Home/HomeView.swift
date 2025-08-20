@@ -90,6 +90,7 @@ struct HomeView: View {
                     }
                     .frame(height:100)
                     .padding(.horizontal,20)
+                    .padding(.vertical,20)
                     
                     //featured links
                     FeaturedLinksView(

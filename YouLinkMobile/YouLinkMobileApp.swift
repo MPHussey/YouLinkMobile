@@ -11,7 +11,7 @@ import SwiftUI
 struct YouLinkMobileApp: App {
     @StateObject private var auth = AuthViewModel()
     let persistenceController = PersistenceController.shared
-
+    
     var body: some Scene {
         WindowGroup {
             Group {
@@ -20,12 +20,12 @@ struct YouLinkMobileApp: App {
                         .environment(\.managedObjectContext,
                                       persistenceController.container.viewContext)
                 } else {
-                
+                    
                     LoginView()
                 }
             }
             .environmentObject(auth)
-            //.preferredColorScheme(.light)
+            .preferredColorScheme(.light)
         }
     }
 }

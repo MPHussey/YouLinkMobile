@@ -43,7 +43,7 @@ struct HighlightChipView: View {
             }
             .frame(height: 50)
         }
-        .padding(.top,16)
+        .padding(.vertical,16)
     }
 }
 
