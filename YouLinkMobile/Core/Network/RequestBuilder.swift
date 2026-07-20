@@ -25,7 +25,7 @@ struct RequestBuilder{
         
         // Set HTTP method
         req.httpMethod = endpoint.method
-        
+         
         // add body if needed
         if let body = bodyData {
             req.httpBody = body

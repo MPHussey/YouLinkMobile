@@ -40,12 +40,17 @@ struct MainTabView: View {
             }
             if isViewAllFeaturesDialogboxOpen{
                 Color.black.opacity(0.5)
-                    .edgesIgnoringSafeArea(/*@START_MENU_TOKEN@*/.all/*@END_MENU_TOKEN@*/)
+                    .edgesIgnoringSafeArea(.all)
                     .onTapGesture {
                         withAnimation{
-                            isViewAllFeaturesDialogboxOpen=false
+                            //isViewAllFeaturesDialogboxOpen=false
                         }
                     }
+                
+                FeaturedLinksDialogboxView(
+                        isFeatureDialogboxOpen: $isViewAllFeaturesDialogboxOpen
+                    )
+                    .zIndex(1)
             }
         }
         .edgesIgnoringSafeArea(.bottom)

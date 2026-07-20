@@ -11,7 +11,7 @@ struct JWTPayload:Decodable{
     let sub: String
     let staffNumber: String
     let staffName: String
-    let profilephoto: String
+    let profilephoto: String?
     let exp: TimeInterval
     let iss: String
     let aud: String
