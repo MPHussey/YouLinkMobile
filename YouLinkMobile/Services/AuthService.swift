@@ -6,13 +6,29 @@
 //
 
 import Foundation
+
+//credentials the user typed at sign-in, kept in the keychain for silent re-auth
+struct StoredCredentials: Codable {
+    let staffNumber: String
+    let password: String
+}
+
+//outcome of the launch-time session restore
+enum SessionResult {
+    case active         // re-auth succeeded -> token refreshed
+    case offline        // re-auth failed on network, but local token still valid
+    case inactive       // server rejected the user -> logged out
+    case noCredentials  // nothing stored -> show login
+}
+
 class AuthService{
     static let shared = AuthService()
     private init() {}
-    
+
     private let service = "com.srilankan.YouLinkMobile"
     private let account = "authToken"
-    
+    private let credentialsAccount = "credentials"
+
     var currentToken: String? {
         get {
             (try? KeychainHelper.read(service: service, account: account))
@@ -31,6 +47,28 @@ class AuthService{
                 }
             } catch {
                 print("� Keychain error: \(error)")
+            }
+        }
+    }
+
+    //user credentials stored as JSON in the keychain
+    var storedCredentials: StoredCredentials? {
+        get {
+            guard
+                let data = try? KeychainHelper.read(service: service, account: credentialsAccount)
+            else { return nil }
+            return try? JSONDecoder().decode(StoredCredentials.self, from: data)
+        }
+        set {
+            do {
+                if let creds = newValue {
+                    let data = try JSONEncoder().encode(creds)
+                    try KeychainHelper.save(data, service: service, account: credentialsAccount)
+                } else {
+                    try KeychainHelper.delete(service: service, account: credentialsAccount)
+                }
+            } catch {
+                print("� Keychain credentials error: \(error)")
             }
         }
     }
@@ -54,9 +92,44 @@ class AuthService{
                     return completion(.failure(AuthError.invalidResponse))
                 }
                 self.currentToken = tok
+                //keep the credentials for silent re-auth on the next launch
+                self.storedCredentials = StoredCredentials(
+                    staffNumber: staffNumber,
+                    password: password
+                )
                 completion(.success(()))
             case .failure(let err):
                 completion(.failure(err))
+            }
+        }
+    }
+
+    //on launch: re-send stored credentials to confirm the user is still active
+    func restoreSession(completion: @escaping (SessionResult) -> Void) {
+        guard let creds = storedCredentials else {
+            return completion(.noCredentials)
+        }
+
+        login(staffNumber: creds.staffNumber, password: creds.password) { [weak self] result in
+            guard let self = self else { return }
+            switch result {
+            case .success:
+                completion(.active)
+            case .failure(let error):
+                if let authError = error as? AuthError,
+                   case .invalidResponse = authError {
+                    //server responded but rejected the user -> no longer active
+                    self.logout()
+                    completion(.inactive)
+                } else {
+                    //network / transport error -> allow offline access if token still valid
+                    if self.isLoggedIn {
+                        completion(.offline)
+                    } else {
+                        self.logout()
+                        completion(.inactive)
+                    }
+                }
             }
         }
     }
@@ -83,9 +156,10 @@ class AuthService{
         return pl
     }
     
-    //logout the user by clearing current token
+    //logout the user by clearing the token and stored credentials
     func logout() {
         currentToken = nil
+        storedCredentials = nil
     }
     
 }

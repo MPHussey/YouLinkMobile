@@ -64,11 +64,7 @@ class HomeViewModel:ObservableObject{
         FrequentButtons(title: "MediCash", hex: "#D71E43", image:"medi-cash-qa-icon",redirectUrl: "https://intraneti.srilankan.com/medicash/login.asp")
     ]
     
-    @Published var mainCarouselItems:[MainCarousel]=[
-        MainCarousel(image: "slide-1"),
-        MainCarousel(image: "slide-2"),
-        MainCarousel(image: "slide-3")
-    ]
+    @Published var mainCarouselItems:[MainCarousel]=[]
     
     @Published var loggedInUserDetails:JWTPayload? = AuthService.shared.decodePayload()
     
@@ -241,6 +237,25 @@ class HomeViewModel:ObservableObject{
         }
     }
     
+    //get the slides of the main carousel
+    func getMainCarousel(){
+        //this endpoint is a GET, so no body is sent
+        homeService.getMainCarousel{[weak self] result in
+            switch result{
+            case .success(let slides):
+                //drop any slide that has no usable image url
+                let mappedDataset=slides.filter{ $0.imageURL != nil }
+                DispatchQueue.main.async{
+                    self?.mainCarouselItems=mappedDataset
+                }
+            case .failure(let error):
+                DispatchQueue.main.async {
+                    self?.errorMessage = error.localizedDescription
+                }
+            }
+        }
+    }
+
     //get official articles for the current year
     func getCompanyEvent() {
         

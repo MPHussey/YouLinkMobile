@@ -15,4 +15,8 @@ struct JWTPayload:Decodable{
     let exp: TimeInterval
     let iss: String
     let aud: String
+    // Optional for now – the backend is expected to add these claims to the
+    // token later; until then they decode as nil and the UI falls back.
+    let designation: String?
+    let contactNumber: String?
 }

@@ -7,11 +7,26 @@ struct HomeView: View {
     @State private var featuredLinkSelection: Int?
     @Environment(\.openURL) private var openURL
     
-    @State private var currentIndex: Int = 1
-    
+    @State private var currentIndex: Int = 0
+
+    //carousel layout: the centre slide is shown in full and `headspace`
+    //points of the neighbouring slides peek in on both sides
+    private let carouselSpacing: CGFloat = 10
+    private let carouselHeadspace: CGFloat = 28
+    //aspect ratio of the slides served by the api (1263 x 850)
+    private let carouselAspectRatio: CGFloat = 1263.0 / 850.0
+
+    @State private var carouselWidth: CGFloat = UIScreen.main.bounds.width
+
+    //height that makes the centre slide exactly as tall as its own width allows
+    private var carouselHeight: CGFloat {
+        let itemWidth = max(0, carouselWidth - (carouselHeadspace + carouselSpacing) * 2)
+        return itemWidth / carouselAspectRatio
+    }
+
     @Binding var viewAllFeaturesStatus:Bool
     @Binding var selectedTab: MainTabView.Tab
-    
+
     private func safeAreaBottom() -> CGFloat {
         UIApplication.shared
             .connectedScenes
@@ -33,23 +48,39 @@ struct HomeView: View {
             ScrollView {
                 VStack {
                     
-                    ACarousel(vm.mainCarouselItems,
-                              id: \.id,
-                              index: $currentIndex,
-                              spacing: 10,
-                              headspace: 10,
-                              sidesScaling: 0.7,
-                              isWrap: true,
-                              autoScroll: .active(8)) { item in
-                        Image(item.image)
-                            .resizable()
-                            .scaledToFit()
-                            .frame(width: 370, height: 450)
-                        
-                            .cornerRadius(12)
+                    //ACarousel crashes when the index is out of the data range,
+                    //so it is only built once the slides have arrived
+                    Group {
+                        if vm.mainCarouselItems.isEmpty {
+                            RoundedRectangle(cornerRadius: 12)
+                                .fill(Color.gray.opacity(0.15))
+                                .padding(.horizontal, carouselHeadspace + carouselSpacing)
+                        } else {
+                            ACarousel(vm.mainCarouselItems,
+                                      id: \.id,
+                                      index: $currentIndex,
+                                      spacing: carouselSpacing,
+                                      headspace: carouselHeadspace,
+                                      sidesScaling: 0.7,
+                                      isWrap: true,
+                                      autoScroll: .active(8)) { item in
+                                carouselSlide(item)
+                            }
+                        }
                     }
-                              .frame(height: 200)
-                    
+                    .frame(height: carouselHeight)
+                    //measure the real width so the height keeps the slide aspect
+                    .background(
+                        GeometryReader { proxy in
+                            Color.clear
+                                .preference(key: CarouselWidthKey.self,
+                                            value: proxy.size.width)
+                        }
+                    )
+                    .onPreferenceChange(CarouselWidthKey.self) { width in
+                        if width > 0 { carouselWidth = width }
+                    }
+
                     
                     //quick action buttons
                     GeometryReader{ geo in
@@ -115,12 +146,63 @@ struct HomeView: View {
             vm.getCompanyEvent()
             vm.getExchangeRates()
             vm.getFlightInformation()
+            vm.getMainCarousel()
+        }
+        //keep the active index valid whenever the slide count changes
+        .onChange(of: vm.mainCarouselItems.count) { _ in
+            currentIndex = 0
         }
     }
-    
-    
+
+    //one carousel slide: remote image, tappable when the api sends a url
+    @ViewBuilder
+    private func carouselSlide(_ item: MainCarousel) -> some View {
+        let slide = AsyncImage(url: item.imageURL) { phase in
+            switch phase {
+            case .success(let image):
+                image
+                    .resizable()
+                    .scaledToFit()
+            case .failure:
+                ZStack {
+                    Color.gray.opacity(0.15)
+                    Image(systemName: "photo")
+                        .foregroundColor(.secondary)
+                }
+            default:
+                ZStack {
+                    Color.gray.opacity(0.15)
+                    ProgressView()
+                }
+            }
+        }
+            .frame(maxWidth: .infinity, maxHeight: .infinity)
+            .clipped()
+            .cornerRadius(8)
+
+        if let link = item.linkURL {
+            Button {
+                openURL(link)
+            } label: {
+                slide
+            }
+            .buttonStyle(.plain)
+        } else {
+            slide
+        }
+    }
+
+
 }
 
+
+//reports the width available to the carousel
+private struct CarouselWidthKey: PreferenceKey {
+    static var defaultValue: CGFloat = 0
+    static func reduce(value: inout CGFloat, nextValue: () -> CGFloat) {
+        value = max(value, nextValue())
+    }
+}
 
 //
 //#Preview {

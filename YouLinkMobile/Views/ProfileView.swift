@@ -11,17 +11,12 @@ struct ProfileView: View {
     @EnvironmentObject private var auth: AuthViewModel
     @StateObject private var vm = ProfileViewModel()
     
-    let fullName = "James Syahir (25222)"
-    let role     = "Designation"
-    let phone    = "163556"
-    
-    let annual   = (used: 2, total: 21)
-    let medical  = (used: 5, total: 7)
-    let duty     = (used: 0, total: 7)
-    
     var body: some View {
         GeometryReader { geo in
             ZStack {
+                Color(hex: "#F2F3F5")
+                    .ignoresSafeArea()
+                
                 VStack(spacing:0) {
                     Image("bg-profile")
                         .resizable()
@@ -30,16 +25,15 @@ struct ProfileView: View {
                         .clipped()
                         .ignoresSafeArea(edges: .top)
                     
-                    Color.white
-                        .ignoresSafeArea(edges: .bottom)
+                    Spacer(minLength: 0)
                 }
                 ScrollView(showsIndicators: false){
-                    VStack(spacing: 50) {
+                    VStack(spacing: 24) {
                         Text("Profile")
                             .font(.title2)
                             .bold()
                             .foregroundColor(.white)
-                            .padding(.top, geo.safeAreaInsets.top + 16)
+                            .padding(.top, geo.safeAreaInsets.top)
                         
                         ZStack(alignment: .top) {
                             RoundedRectangle(cornerRadius: 16)
@@ -49,20 +43,40 @@ struct ProfileView: View {
                             
                             VStack(spacing: 8) {
                                 Spacer().frame(height: 40)
-                                Text("\(vm.loggedInUserDetails!.staffName) (\(vm.loggedInUserDetails!.staffNumber))")
+                                Text("\(vm.staffName) (\(vm.staffNumber))")
                                     .font(.headline)
                                     .multilineTextAlignment(.center)
-                                Text(role)
+                                Text(vm.designation)
                                     .font(.caption2)
                                     .foregroundColor(.gray)
+                                    .multilineTextAlignment(.center)
                                 HStack(spacing: 4) {
                                     Image(systemName: "phone.fill")
                                         .foregroundColor(.gray)
-                                    Text(phone)
+                                    Text(vm.contactNumber)
                                         .font(.caption2)
                                         .foregroundColor(.gray)
                                 }
                                 .padding(.top, 4)
+                                
+                                Button(action: {
+                                    auth.logOut()
+                                }) {
+                                    HStack(spacing: 8) {
+                                        Image(systemName: "power")
+                                        Text("Sign out")
+                                    }
+                                    .font(.headline)
+                                    .foregroundColor(.red)
+                                    .frame(maxWidth: .infinity)
+                                    .padding(.vertical, 12)
+                                    .background(
+                                        Capsule()
+                                            .stroke(Color.red, lineWidth: 1.5)
+                                    )
+                                }
+                                .padding(.top, 20)
+                                
                                 Spacer().frame(height: 16)
                             }
                             .padding(.horizontal, 16)
@@ -75,64 +89,15 @@ struct ProfileView: View {
                                     .shadow(color: .black.opacity(0.1),
                                             radius: 4, x: 0, y: 2)
                                 profileImage
-                                //                                Image("bg-profile-pic")
-                                //                                    .resizable()
-                                //                                    .scaledToFill()
-                                //                                    .frame(width: 72, height: 72)
-                                //                                    .clipShape(Circle())
                             }
                             .offset(y: -40)
                         }
                         .frame(width: geo.size.width * 0.9)
                         .fixedSize(horizontal: false, vertical: true)
+                        .padding(.top, 26)   // room for the avatar overhang
                         
-                        VStack(alignment: .leading, spacing: 16) {
-                            Text("Leave Balance")
-                                .font(.headline)
-                            
-                            balanceRow(label: "Annual",
-                                       used: annual.used,
-                                       total: annual.total,
-                                       color: .green)
-                            
-                            balanceRow(label: "Medical",
-                                       used: medical.used,
-                                       total: medical.total,
-                                       color: .green)
-                            
-                            balanceRow(label: "Duty Leave",
-                                       used: duty.used,
-                                       total: duty.total,
-                                       color: .green)
-                            
-                            Button("Apply Leave") {
-                                
-                            }
-                            .font(.headline)
-                            .frame(maxWidth: .infinity)
-                            .padding()
-                            .background(Color(hex: "#176EBC"))
-                            .foregroundColor(.white)
-                            .cornerRadius(8)
-                        }
-                        .padding()
-                        .background(RoundedRectangle(cornerRadius: 16)
-                            .fill(Color.white)
-                            .shadow(color: .black.opacity(0.1),
-                                    radius: 4, x: 0, y: 2))
-                        .frame(width: geo.size.width * 0.9)
-                        
-                        Button(action: {
-                            auth.logOut()
-                        }) {
-                            HStack {
-                                Image(systemName: "power")
-                                Text("Sign out")
-                            }
-                            .foregroundColor(.red)
-                            .font(.headline)
-                        }
-                        .padding(.top, 8)
+                        ProfileSupportCardView()
+                            .frame(width: geo.size.width * 0.9)
                         
                         Spacer()
                             .frame(height: geo.safeAreaInsets.bottom + 16)
@@ -142,22 +107,6 @@ struct ProfileView: View {
             }
         }
     }
-    @ViewBuilder
-    private func balanceRow(
-        label: String, used: Int, total: Int, color: Color
-    ) -> some View {
-        VStack(alignment: .leading, spacing: 4) {
-            HStack {
-                Text(label)
-                Spacer()
-                Text("\(used)/\(total)")
-            }
-            .font(.subheadline)
-            BalanceBar(fraction: Double(used)/Double(total), color: color)
-                .frame(height: 6)
-        }
-    }
-    
     
     @ViewBuilder
     private var profileImage: some View {
@@ -187,21 +136,48 @@ struct ProfileView: View {
     }
 }
 
-
-struct BalanceBar: View {
-    let fraction: Double
-    let color: Color
+/// App version + IT Service Desk details shown under the profile card.
+struct ProfileSupportCardView: View {
+    private let serviceDeskExtension = "3000"
     
     var body: some View {
-        GeometryReader { geo in
-            ZStack(alignment: .leading) {
-                Capsule()
-                    .fill(Color.gray.opacity(0.2))
-                Capsule()
-                    .fill(color)
-                    .frame(width: geo.size.width * CGFloat(fraction))
+        VStack(spacing: 10) {
+            Text("V \(AppInfo.displayVersion)")
+                .font(.footnote)
+                .foregroundColor(.gray)
+            
+            VStack(spacing: 2) {
+                (Text("Need help? ").bold()
+                 + Text("Contact IT Service Desk"))
+                Text("(Ext: ") + Text(serviceDeskExtension).bold() + Text(") | 24×7 Support")
             }
+            .font(.footnote)
+            .foregroundColor(.gray)
+            .multilineTextAlignment(.center)
+            
+            Image("it-systems-logo-1")
+                .resizable()
+                .scaledToFit()
+                .frame(height: 34)
+                .padding(.top, 8)
         }
+        .frame(maxWidth: .infinity)
+        .padding(.vertical, 20)
+        .padding(.horizontal, 16)
+        .background(RoundedRectangle(cornerRadius: 16)
+            .fill(Color.white)
+            .shadow(color: .black.opacity(0.1),
+                    radius: 4, x: 0, y: 2))
+    }
+}
+
+enum AppInfo {
+    /// e.g. "1.0.0.2" – marketing version plus build number from the bundle.
+    static var displayVersion: String {
+        let info = Bundle.main.infoDictionary
+        let short = info?["CFBundleShortVersionString"] as? String ?? "1.0"
+        let build = info?["CFBundleVersion"] as? String ?? "0"
+        return "\(short).\(build)"
     }
 }
 

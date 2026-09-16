@@ -24,13 +24,19 @@ struct MainTabView: View {
                 case .chats:
                     NavigationStack{TestView()}
                 case .notifications:
-                    NavigationStack{Text("Notification View")}
+                    NavigationStack{
+                        EmailView(
+                            selectedTab: $selected,
+                            showCenterMenu: $isShowingCenterMenu
+                        )
+                    }
                 case .profile:
                     NavigationStack{ProfileView()}
                 }
                 
             }
             .frame(maxWidth:.infinity,maxHeight: .infinity)
+
             VStack{
                 Spacer()
                 CustomTabBar(
@@ -85,7 +91,7 @@ struct CustomTabBar: View {
                 }
                 .frame(maxWidth:.infinity)
                 VStack {
-                    tabItem(.notifications,"notification-reg-icon","Notifications")
+                    tabItem(.notifications,"inbox-mail-icon","Inbox")
                 }
                 .frame(maxWidth: .infinity)
                 //                tabItem(.home,"home-reg-icon","Home")
@@ -155,6 +161,29 @@ struct CustomTabBar: View {
 //     }
 //   }
 
+
+
+struct NewMailButton: View {
+    var action: () -> Void
+
+    var body: some View {
+        Button(action: action) {
+            HStack(spacing: 8) {
+                Image(systemName: "square.and.pencil")
+                    .font(.system(size: 16, weight: .semibold))
+//                Text("New Mail")
+                    .font(.system(size: 15, weight: .semibold))
+            }
+                .foregroundColor(.white)
+            .padding(.vertical, 12)
+            .padding(.horizontal, 18)
+            .background(
+                Capsule().fill(Color(hex: "#05497B"))
+            )
+            .shadow(color: Color.black.opacity(0.25),radius: 0)
+        }
+    }
+}
 
 
 struct CenterInwardCurve: Shape {

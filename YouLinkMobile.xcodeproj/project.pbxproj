@@ -53,6 +53,18 @@
 		72AE5EAA2E071537001E88D2 /* MainTabView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 72AE5EA92E071537001E88D2 /* MainTabView.swift */; };
 		72AE5EAC2E0723E9001E88D2 /* Color+Hex.swift in Sources */ = {isa = PBXBuildFile; fileRef = 72AE5EAB2E0723E9001E88D2 /* Color+Hex.swift */; };
 		72CE80A12E2F047C008F7BBA /* ACarousel in Frameworks */ = {isa = PBXBuildFile; productRef = 72CE80A02E2F047C008F7BBA /* ACarousel */; };
+		72EE000000000000000000B1 /* Email.swift in Sources */ = {isa = PBXBuildFile; fileRef = 72EE000000000000000000F1 /* Email.swift */; };
+		72EE000000000000000000B2 /* EmailViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 72EE000000000000000000F2 /* EmailViewModel.swift */; };
+		72EE000000000000000000B3 /* EmailRowView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 72EE000000000000000000F3 /* EmailRowView.swift */; };
+		72EE000000000000000000B4 /* InboxHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 72EE000000000000000000F4 /* InboxHeaderView.swift */; };
+		72EE000000000000000000B5 /* EmailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 72EE000000000000000000F5 /* EmailView.swift */; };
+		72EE000000000000000000B6 /* EmailDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 72EE000000000000000000F6 /* EmailDetailView.swift */; };
+		72EE000000000000000000B7 /* HTMLBodyView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 72EE000000000000000000F7 /* HTMLBodyView.swift */; };
+		72EE000000000000000000B8 /* EmailComposeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 72EE000000000000000000F8 /* EmailComposeView.swift */; };
+		72EE000000000000000000B9 /* EmailService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 72EE000000000000000000F9 /* EmailService.swift */; };
+		72EE000000000000000000BA /* EmailAttachment.swift in Sources */ = {isa = PBXBuildFile; fileRef = 72EE000000000000000000FA /* EmailAttachment.swift */; };
+		72EE000000000000000000BB /* EmailDetailViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 72EE000000000000000000FB /* EmailDetailViewModel.swift */; };
+		72EE000000000000000000BC /* EmailComposeViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 72EE000000000000000000FC /* EmailComposeViewModel.swift */; };
 		72FDB2D22E1362310011A2E4 /* AuthService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 72FDB2D12E1362310011A2E4 /* AuthService.swift */; };
 		72FDB2D62E1363680011A2E4 /* KeychainHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 72FDB2D52E1363680011A2E4 /* KeychainHelper.swift */; };
 /* End PBXBuildFile section */
@@ -122,6 +134,18 @@
 		72AE5EA92E071537001E88D2 /* MainTabView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainTabView.swift; sourceTree = "<group>"; };
 		72AE5EAB2E0723E9001E88D2 /* Color+Hex.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Color+Hex.swift"; sourceTree = "<group>"; };
 		72B85CA52E559E3700110F0B /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
+		72EE000000000000000000F1 /* Email.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Email.swift; sourceTree = "<group>"; };
+		72EE000000000000000000F2 /* EmailViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EmailViewModel.swift; sourceTree = "<group>"; };
+		72EE000000000000000000F3 /* EmailRowView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EmailRowView.swift; sourceTree = "<group>"; };
+		72EE000000000000000000F4 /* InboxHeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InboxHeaderView.swift; sourceTree = "<group>"; };
+		72EE000000000000000000F5 /* EmailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EmailView.swift; sourceTree = "<group>"; };
+		72EE000000000000000000F6 /* EmailDetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EmailDetailView.swift; sourceTree = "<group>"; };
+		72EE000000000000000000F7 /* HTMLBodyView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HTMLBodyView.swift; sourceTree = "<group>"; };
+		72EE000000000000000000F8 /* EmailComposeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EmailComposeView.swift; sourceTree = "<group>"; };
+		72EE000000000000000000F9 /* EmailService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EmailService.swift; sourceTree = "<group>"; };
+		72EE000000000000000000FA /* EmailAttachment.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EmailAttachment.swift; sourceTree = "<group>"; };
+		72EE000000000000000000FB /* EmailDetailViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EmailDetailViewModel.swift; sourceTree = "<group>"; };
+		72EE000000000000000000FC /* EmailComposeViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EmailComposeViewModel.swift; sourceTree = "<group>"; };
 		72FDB2D12E1362310011A2E4 /* AuthService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthService.swift; sourceTree = "<group>"; };
 		72FDB2D52E1363680011A2E4 /* KeychainHelper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KeychainHelper.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -269,6 +293,8 @@
 				722DE3FD2E0E515B00594049 /* MainCarousel.swift */,
 				72AE39632E13873A00AA4F36 /* JWTPayload.swift */,
 				72AC5C782E1E65C900ABFC29 /* CenterMenuUrl.swift */,
+				72EE000000000000000000F1 /* Email.swift */,
+				72EE000000000000000000FA /* EmailAttachment.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -278,6 +304,7 @@
 			children = (
 				722DE40B2E0E976900594049 /* HomeService.swift */,
 				72FDB2D12E1362310011A2E4 /* AuthService.swift */,
+				72EE000000000000000000F9 /* EmailService.swift */,
 			);
 			path = Services;
 			sourceTree = "<group>";
@@ -289,6 +316,7 @@
 				72AE5EA62E07141B001E88D2 /* Home */,
 				72AE5EA52E07140B001E88D2 /* MainTab */,
 				72AE5EA32E0713F0001E88D2 /* Authentication */,
+				72EE000000000000000000E1 /* Email */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -300,6 +328,9 @@
 				722DE3F42E0CCC1200594049 /* AuthViewModel.swift */,
 				7258EB732E14B612005956FB /* ProfileViewModel.swift */,
 				727E4E6D2E221166003A25E9 /* CenterMenuViewModel.swift */,
+				72EE000000000000000000F2 /* EmailViewModel.swift */,
+				72EE000000000000000000FB /* EmailDetailViewModel.swift */,
+				72EE000000000000000000FC /* EmailComposeViewModel.swift */,
 			);
 			path = ViewModels;
 			sourceTree = "<group>";
@@ -316,6 +347,9 @@
 				722DE40D2E10F88C00594049 /* TestView.swift */,
 				72AC5C762E1DED9400ABFC29 /* CenterMenuView.swift */,
 				726F8B842E323ECA00A769F2 /* FeaturedLinksDialogboxView.swift */,
+				72EE000000000000000000F3 /* EmailRowView.swift */,
+				72EE000000000000000000F4 /* InboxHeaderView.swift */,
+				72EE000000000000000000F7 /* HTMLBodyView.swift */,
 			);
 			path = Components;
 			sourceTree = "<group>";
@@ -350,6 +384,16 @@
 				72AE5EA72E0714A8001E88D2 /* HomeView.swift */,
 			);
 			path = Home;
+			sourceTree = "<group>";
+		};
+		72EE000000000000000000E1 /* Email */ = {
+			isa = PBXGroup;
+			children = (
+				72EE000000000000000000F5 /* EmailView.swift */,
+				72EE000000000000000000F6 /* EmailDetailView.swift */,
+				72EE000000000000000000F8 /* EmailComposeView.swift */,
+			);
+			path = Email;
 			sourceTree = "<group>";
 		};
 		72FDB2D42E1363110011A2E4 /* Security */ = {
@@ -541,6 +585,18 @@
 				727943EE2E08160A005471C5 /* HeaderView.swift in Sources */,
 				722DE4022E0E743700594049 /* Endpoint.swift in Sources */,
 				7258EB742E14B612005956FB /* ProfileViewModel.swift in Sources */,
+				72EE000000000000000000B1 /* Email.swift in Sources */,
+				72EE000000000000000000B2 /* EmailViewModel.swift in Sources */,
+				72EE000000000000000000B3 /* EmailRowView.swift in Sources */,
+				72EE000000000000000000B4 /* InboxHeaderView.swift in Sources */,
+				72EE000000000000000000B5 /* EmailView.swift in Sources */,
+				72EE000000000000000000B6 /* EmailDetailView.swift in Sources */,
+				72EE000000000000000000B7 /* HTMLBodyView.swift in Sources */,
+				72EE000000000000000000B8 /* EmailComposeView.swift in Sources */,
+				72EE000000000000000000B9 /* EmailService.swift in Sources */,
+				72EE000000000000000000BA /* EmailAttachment.swift in Sources */,
+				72EE000000000000000000BB /* EmailDetailViewModel.swift in Sources */,
+				72EE000000000000000000BC /* EmailComposeViewModel.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

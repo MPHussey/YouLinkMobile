@@ -46,6 +46,18 @@ class HomeService{
                 completion:completion
             )
         }
-    
+
+    //get main carousel slides
+    func getMainCarousel(
+        bodyData: Data? = nil,
+        completion:@escaping (Result<[MainCarousel], Error>)->Void){
+            HTTPClient.shared.send(
+                endpoint: .mainCarousel,
+                bodyData: bodyData,
+                decodeTo: [MainCarousel].self,
+                completion:completion
+            )
+        }
+
 }
 
