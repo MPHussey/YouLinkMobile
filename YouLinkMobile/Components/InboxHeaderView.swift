@@ -60,18 +60,19 @@ struct InboxHeaderView: View {
 
                 Spacer()
 
-                Text(title)
-                    .font(.title2)
-                    .bold()
-                    .foregroundColor(.white)
-
-                Spacer()
-
                 Button(action: onTrailingTap) {
                     Group {
                         switch trailing {
                         case .profile:
-                            profileImage
+                            //same white half-rounded tab behind the avatar as the home header
+                            ZStack {
+                                Color.white
+                                    .frame(width: 70, height: 70)
+                                    .clipShape(
+                                        RoundedCorners(radius: 30, corners: [.topLeft, .bottomLeft])
+                                    )
+                                profileImage
+                            }
                         case .send:
                             Image(systemName: "paperplane")
                                 .font(.system(size: 22, weight: .semibold))
@@ -81,7 +82,16 @@ struct InboxHeaderView: View {
                     }
                 }
             }
-            .padding(.horizontal, 20)
+            //title sits in an overlay so it stays centred whatever the button widths are
+            .overlay(
+                Text(title)
+                    .font(.title2)
+                    .bold()
+                    .foregroundColor(.white)
+            )
+            .padding(.leading, 20)
+            //the profile tab runs flush to the screen edge, like the home header
+            .padding(.trailing, trailing == .profile ? 0 : 20)
             .padding(.top, safeAreaTopInset() + 12)
         }
         .frame(height: 100 + safeAreaTopInset())
@@ -98,14 +108,14 @@ struct InboxHeaderView: View {
             Image(uiImage: uiImage)
                 .resizable()
                 .scaledToFill()
-                .frame(width: 44, height: 44)
+                .frame(width: 60, height: 60)
                 .clipShape(Circle())
                 .overlay(Circle().stroke(Color.white, lineWidth: 2))
         } else {
             Image("sample-user")
                 .resizable()
                 .scaledToFill()
-                .frame(width: 44, height: 44)
+                .frame(width: 60, height: 60)
                 .clipShape(Circle())
                 .overlay(Circle().stroke(Color.white, lineWidth: 2))
         }

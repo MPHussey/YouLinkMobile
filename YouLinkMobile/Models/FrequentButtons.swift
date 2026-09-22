@@ -13,7 +13,10 @@ struct FrequentButtons:Identifiable {
     let title:String
     let hex:String
     let image:String
-    let redirectUrl:String
+    //label of the matching item under "applications" in the menu service
+    let menuLabel:String
+    //filled from the menu service, nil until it loads
+    var redirectUrl:String? = nil
     
     var borderColor:Color{Color(hex: hex)}
 }

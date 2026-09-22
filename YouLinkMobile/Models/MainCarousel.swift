@@ -21,24 +21,31 @@ struct MainCarousel:Identifiable, Hashable, Equatable, Decodable{
     }
 
     var imageURL:URL?{
-        Self.makeURL(from: src)
+        URL(apiString: src)
     }
 
     var linkURL:URL?{
-        Self.makeURL(from: url)
+        URL(apiString: url)
     }
+}
 
+extension URL{
     //build a url and percent-encode it when the api sends unescaped characters
-    private static func makeURL(from raw:String?) -> URL?{
+    init?(apiString raw:String?){
         guard
             let trimmed = raw?.trimmingCharacters(in: .whitespacesAndNewlines),
             !trimmed.isEmpty
         else { return nil }
 
-        if let url = URL(string: trimmed){ return url }
+        if let url = URL(string: trimmed){
+            self = url
+            return
+        }
 
-        return trimmed
-            .addingPercentEncoding(withAllowedCharacters: .urlQueryAllowed)
-            .flatMap(URL.init(string:))
+        guard
+            let encoded = trimmed.addingPercentEncoding(withAllowedCharacters: .urlQueryAllowed),
+            let url = URL(string: encoded)
+        else { return nil }
+        self = url
     }
 }

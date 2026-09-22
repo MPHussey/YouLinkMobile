@@ -10,6 +10,7 @@ import SwiftUI
 struct FeaturedLinksDialogboxView: View {
     @StateObject private var vm=HomeViewModel()
     @Binding var isFeatureDialogboxOpen:Bool
+    @Environment(\.openURL) private var openURL
     var columns: [GridItem] = Array(repeating: .init(.flexible(), spacing: 12), count: 3)
     
     var body: some View {
@@ -27,24 +28,29 @@ struct FeaturedLinksDialogboxView: View {
                 
             }
             LazyVGrid(columns: columns, spacing: 16) {
-                ForEach(vm.featuredDialogboxLinks) { link in
-                    VStack(spacing: 8) {
-                        Image(link.image)
-                            .resizable()
-                            .scaledToFit()
-                            .frame(width: 40, height: 40)
-                        
-                        Text(link.title)
-                            .font(.caption)
-                            .multilineTextAlignment(.center)
-                            .foregroundColor(.black)
+                ForEach(vm.featuredLinks) { link in
+                    Button {
+                        if let url = link.redirectURL {
+                            openURL(url)
+                        }
+                    } label: {
+                        VStack(spacing: 8) {
+                            QuickLinkIcon(url: link.imageURL)
+                                .frame(width: 40, height: 40)
+                            
+                            Text(link.title)
+                                .font(.caption)
+                                .multilineTextAlignment(.center)
+                                .foregroundColor(.black)
+                        }
+                        .padding()
+                        .frame(maxWidth: .infinity)
+                        .background(
+                            RoundedRectangle(cornerRadius: 12)
+                                .stroke(Color(hex: "#004598"), lineWidth: 1)
+                        )
                     }
-                    .padding()
-                    .frame(maxWidth: .infinity)
-                    .background(
-                        RoundedRectangle(cornerRadius: 12)
-                            .stroke(Color(hex: "#004598"), lineWidth: 1)
-                    )
+                    .buttonStyle(.plain)
                 }
             }
         }
@@ -53,6 +59,9 @@ struct FeaturedLinksDialogboxView: View {
         .cornerRadius(10)
         .padding(.horizontal,20)
         .shadow(radius: /*@START_MENU_TOKEN@*/10/*@END_MENU_TOKEN@*/)
+        .onAppear {
+            vm.getQuickLinks()
+        }
     }
 }
 

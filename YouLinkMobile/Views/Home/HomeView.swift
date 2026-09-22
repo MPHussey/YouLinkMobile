@@ -92,7 +92,7 @@ struct HomeView: View {
                             ForEach(vm.quickButtons, id: \.title){action in
                                 VStack(spacing:6){
                                     Button{
-                                        if let url = URL(string: action.redirectUrl) {
+                                        if let url = URL(apiString: action.redirectUrl) {
                                             openURL(url)
                                         }
                                     } label: {
@@ -124,9 +124,11 @@ struct HomeView: View {
                     .padding(.vertical,20)
                     
                     //featured links
-                    FeaturedLinksView(
-                        links:vm.featuredLinks, selectedIndex: $featuredLinkSelection,btnViewAll: $viewAllFeaturesStatus
-                    )
+                    if !vm.featuredLinks.isEmpty {
+                        FeaturedLinksView(
+                            links:vm.featuredLinks, selectedIndex: $featuredLinkSelection,btnViewAll: $viewAllFeaturesStatus
+                        )
+                    }
                     
                     //Highlight section
                     HighlightChipView(highlightLinks:vm.highlights)
@@ -147,6 +149,8 @@ struct HomeView: View {
             vm.getExchangeRates()
             vm.getFlightInformation()
             vm.getMainCarousel()
+            vm.getQuickLinks()
+            vm.getQuickButtonLinks()
         }
         //keep the active index valid whenever the slide count changes
         .onChange(of: vm.mainCarouselItems.count) { _ in

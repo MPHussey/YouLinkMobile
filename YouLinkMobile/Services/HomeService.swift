@@ -59,6 +59,18 @@ class HomeService{
             )
         }
 
+    //get the quick links shown in the featured links section
+    func getQuickLinks(
+        bodyData: Data? = nil,
+        completion:@escaping (Result<[FeaturedLink], Error>)->Void){
+            HTTPClient.shared.send(
+                endpoint: .quickLinks,
+                bodyData: bodyData,
+                decodeTo: [FeaturedLink].self,
+                completion:completion
+            )
+        }
+
     //get the center menu links grouped by section (applications, corporate, divisions)
     func getApplicationMenu(
         bodyData: Data? = nil,

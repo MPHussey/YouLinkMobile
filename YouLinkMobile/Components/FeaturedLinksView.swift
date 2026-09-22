@@ -11,6 +11,8 @@ struct FeaturedLinksView: View {
     let links: [FeaturedLink]
     @Binding var selectedIndex: Int?
     @Binding var btnViewAll:Bool
+    //how many links the horizontal slider shows, "View All" shows the rest
+    var maxVisible: Int = 6
     @Environment(\.openURL) private var openURL
     
     var body: some View {
@@ -19,27 +21,27 @@ struct FeaturedLinksView: View {
                 Text("Featured Links")
                     .font(.headline)
                 Spacer()
-                Button("View All"){
-                    btnViewAll=true
+                if links.count > maxVisible {
+                    Button("View All"){
+                        btnViewAll=true
+                    }
+                    .font(.subheadline)
                 }
-                .font(.subheadline)
             }
             .padding(.horizontal,20)
             
             ScrollView(.horizontal, showsIndicators: false) {
                 LazyHStack(spacing:16) {
                     // enumerate so we can write back to selectedIndex
-                    ForEach(Array(links.enumerated()), id: \.offset) { index, link in
+                    ForEach(Array(links.prefix(maxVisible).enumerated()), id: \.offset) { index, link in
                         Button {
                             selectedIndex = index
-                            if let url = URL(string: link.redirectUrl) {
+                            if let url = link.redirectURL {
                                 openURL(url)
                             }
                         } label: {
                             VStack(spacing:8) {
-                                Image(link.image)
-                                    .resizable()
-                                    .scaledToFit()
+                                QuickLinkIcon(url: link.imageURL)
                                     .frame(height: 60)
                                 Text(link.title)
                                     .font(.subheadline)
@@ -71,6 +73,30 @@ struct FeaturedLinksView: View {
                 .padding(.horizontal,20)
             }
             .frame(height: 160)
+        }
+    }
+}
+
+//remote quick link icon with a placeholder while loading or on failure
+struct QuickLinkIcon: View {
+    let url: URL?
+
+    var body: some View {
+        AsyncImage(url: url) { phase in
+            switch phase {
+            case .success(let image):
+                image
+                    .resizable()
+                    .scaledToFit()
+            case .failure:
+                Image(systemName: "link")
+                    .resizable()
+                    .scaledToFit()
+                    .padding(8)
+                    .foregroundColor(.gray)
+            default:
+                ProgressView()
+            }
         }
     }
 }

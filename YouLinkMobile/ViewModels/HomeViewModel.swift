@@ -8,34 +8,8 @@
 import SwiftUI
 
 class HomeViewModel:ObservableObject{
-    @Published var featuredLinks:[FeaturedLink]=[
-        .init(image: "bia-flight-icon", title:"BIA Flights",redirectUrl: "https://www.airport.lk/"),
-        .init(image: "safty-icon", title: "Safty",redirectUrl: "https://youlink.srilankan.com/SafetyInformationCentre"),
-        .init(image: "crisis-management-icon", title: "Crisis Management",redirectUrl: "https://intraneti.srilankan.com/eruoneworld/index.html"),
-        .init(image: "nivahana-icon", title: "Nivahana",redirectUrl: "https://intraneti.srilankan.com/welfare_society/FullCalendar/Index/B002"),
-        .init(image: "welfare-icon", title: "Welfare",redirectUrl: "https://intraneti.srilankan.com/welfare_society/Home/index"),
-        .init(image: "magazine-icon", title: "Magazine",redirectUrl: "https://youlink.srilankan.com/News/Pages/Magazines.aspx"),
-        .init(image: "monara-icon", title: "Monara",redirectUrl: "https://youlink.srilankan.com/Corporate-Information/Pages/Monara.aspx"),
-        
-    ]
-    
-    @Published var featuredDialogboxLinks:[FeaturedLink] = [
-        .init(image: "monara-dialogbox", title: "Monara", redirectUrl: "https://test-url.com/monara"),
-        .init(image: "it-complaints-dialogbox", title: "IT Complaints", redirectUrl: "https://test-url.com/it-complaints"),
-        .init(image: "pef-dialogbox", title: "PEF", redirectUrl: "https://test-url.com/pef"),
-        .init(image: "pif-dialogbox", title: "PIF", redirectUrl: "https://test-url.com/pif"),
-        .init(image: "destination-dialogbox", title: "Destination", redirectUrl: "https://test-url.com/destination"),
-        .init(image: "magazines-dialogbox", title: "Magazines", redirectUrl: "https://test-url.com/magazines"),
-        .init(image: "eworld-dialogbox", title: "E-World", redirectUrl: "https://test-url.com/eworld"),
-        .init(image: "ask-know-dialogbox", title: "Ask Know", redirectUrl: "https://test-url.com/ask-know"),
-        .init(image: "welfare-dialogbox", title: "Welfare", redirectUrl: "https://test-url.com/welfare"),
-        .init(image: "integrity-committee-dialogbox", title: "Integrity Committee", redirectUrl: "https://test-url.com/integrity-committee"),
-        .init(image: "nivahana-dialogbox", title: "Nivahana", redirectUrl: "https://test-url.com/nivahana"),
-        .init(image: "profile-image-dialogbox", title: "Profile Image", redirectUrl: "https://test-url.com/profile-image"),
-        .init(image: "crisis-mamagment-dialogbox", title: "Crisis Management", redirectUrl: "https://test-url.com/crisis-management"),
-        .init(image: "safty-dialogbox", title: "Safety", redirectUrl: "https://test-url.com/safety"),
-        .init(image: "bia-flight-dialogbox", title: "BIA Flight", redirectUrl: "https://test-url.com/bia-flight")
-    ]
+    //filled from the quick-links endpoint
+    @Published var featuredLinks:[FeaturedLink]=[]
 
     
     @Published var highlights:[HighLight] = [
@@ -57,11 +31,12 @@ class HomeViewModel:ObservableObject{
     
     @Published var articles:[Article]=[]
     
+    //urls come from the "applications" section of the menu service
     @Published var quickButtons:[FrequentButtons]=[
-        FrequentButtons(title: "SARA", hex: "#0247A8", image:"sara-qa-icon",redirectUrl: "https://saraapp.srilankan.com/ux/myitapp/#/catalog/home"),
-        FrequentButtons(title: "HR Space", hex: "#EB6127", image:"hrspace-qa-icon",redirectUrl: "https://youlink.srilankan.com/sites/HR/"),
-        FrequentButtons(title: "Staff Travel", hex: "#0E9147", image:"staff-travel-qa-icon",redirectUrl: "https://stafftravel.srilankan.com/"),
-        FrequentButtons(title: "MediCash", hex: "#D71E43", image:"medi-cash-qa-icon",redirectUrl: "https://intraneti.srilankan.com/medicash/login.asp")
+        FrequentButtons(title: "SARA", hex: "#0247A8", image:"sara-qa-icon", menuLabel: "SARA"),
+        FrequentButtons(title: "HR Space", hex: "#EB6127", image:"hrspace-qa-icon", menuLabel: "My HR Space"),
+        FrequentButtons(title: "Staff Travel", hex: "#0E9147", image:"staff-travel-qa-icon", menuLabel: "Staff Travel"),
+        FrequentButtons(title: "MediCash", hex: "#D71E43", image:"medi-cash-qa-icon", menuLabel: "MediCash")
     ]
     
     @Published var mainCarouselItems:[MainCarousel]=[]
@@ -247,6 +222,51 @@ class HomeViewModel:ObservableObject{
                 let mappedDataset=slides.filter{ $0.imageURL != nil }
                 DispatchQueue.main.async{
                     self?.mainCarouselItems=mappedDataset
+                }
+            case .failure(let error):
+                DispatchQueue.main.async {
+                    self?.errorMessage = error.localizedDescription
+                }
+            }
+        }
+    }
+
+    //get the quick links for the featured links section
+    func getQuickLinks(){
+        //this endpoint is a GET, so no body is sent
+        homeService.getQuickLinks{[weak self] result in
+            switch result{
+            case .success(let links):
+                DispatchQueue.main.async{
+                    self?.featuredLinks=links
+                }
+            case .failure(let error):
+                DispatchQueue.main.async {
+                    self?.errorMessage = error.localizedDescription
+                }
+            }
+        }
+    }
+
+    //get the quick button urls from the applications in the menu service
+    func getQuickButtonLinks(){
+        //this endpoint is a GET, so no body is sent
+        homeService.getApplicationMenu{[weak self] result in
+            switch result{
+            case .success(let menu):
+                //match on label, ignoring case and surrounding spaces
+                let key:(String)->String = { $0.trimmingCharacters(in: .whitespaces).lowercased() }
+                let urlsByLabel = Dictionary(
+                    (menu["applications"] ?? []).map{ (key($0.label), $0.url) },
+                    uniquingKeysWith: { first, _ in first }
+                )
+                DispatchQueue.main.async{
+                    guard let self else { return }
+                    self.quickButtons = self.quickButtons.map{ button in
+                        var button = button
+                        button.redirectUrl = urlsByLabel[key(button.menuLabel)]
+                        return button
+                    }
                 }
             case .failure(let error):
                 DispatchQueue.main.async {

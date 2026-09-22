@@ -21,13 +21,14 @@ enum Endpoint{
     case emailReply
     case mainCarousel
     case applicationMenu
+    case quickLinks
     
     //bind endpoint name with real endpoints
     var path:String{
         switch self{
         case .login: return "YouLinkMobileAPI/api/Auth/login"
-        case .getAllEvents: return "YouLinkAPI/api/Event/GetAllEvents"
-        case .exchangeRates: return "YouLinkAPI/api/ExchangeRates/ExchangeRates"
+        case .getAllEvents: return "YouLinkMobileAPI/api/Event/GetAllEvents"
+        case .exchangeRates: return "YouLinkMobileAPI/api/ExchangeRates/ExchangeRates"
         case .getFlightInfo: return "CMB_FlightInfoAll_API/api/FlightSchedule/GetFlights"
         case .getEmailList:return "YouLinkMobileAPI/api/Email/read"
         case .markAsRead:return "YouLinkMobileAPI/api/Email/mark-as-read"
@@ -37,6 +38,7 @@ enum Endpoint{
         case .emailReply:return "YouLinkMobileAPI/api/Email/reply"
         case .mainCarousel:return "YouLinkMobileAPI/api/Menu/main-carousel"
         case .applicationMenu:return "YouLinkMobileAPI/api/Menu"
+        case .quickLinks:return "YouLinkMobileAPI/api/Menu/quick-links"
         }
     }
     
@@ -61,6 +63,7 @@ enum Endpoint{
         switch self{
         case .mainCarousel : return "GET"
         case .applicationMenu : return "GET"
+        case .quickLinks : return "GET"
         default : return "POST"
         }
     }
