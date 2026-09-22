@@ -14,10 +14,10 @@ class HomeViewModel:ObservableObject{
     
     @Published var highlights:[HighLight] = [
         HighLight(title: "Company Holidays",redirectUrl: "https://youlink.srilankan.com/Corporate-Information/Lists/ULCalendar/calendar.aspx"),
-        HighLight(title: "SVN",redirectUrl: "https://intraneti.srilankan.com/svn/"),
-        HighLight(title: "Employee Manuals",redirectUrl:"https://youlink.srilankan.com/Pages/Corporate-Policies.aspx"),
-        HighLight(title: "Travel Policy",redirectUrl: "https://stafftravel.srilankan.com/"),
-        HighLight(title: "IT Support",redirectUrl: "https://youlink.srilankan.com/sites/IT/")
+//        HighLight(title: "SVN",redirectUrl: "https://intraneti.srilankan.com/svn/"),
+//        HighLight(title: "Employee Manuals",redirectUrl:"https://youlink.srilankan.com/Pages/Corporate-Policies.aspx"),
+//        HighLight(title: "Travel Policy",redirectUrl: "https://stafftravel.srilankan.com/"),
+//        HighLight(title: "IT Support",redirectUrl: "https://youlink.srilankan.com/sites/IT/")
     ]
     
     //Early -> #00914a

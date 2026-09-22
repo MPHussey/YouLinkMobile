@@ -164,24 +164,34 @@ struct CustomTabBar: View {
 
 
 struct NewMailButton: View {
+    //true -> icon + "New Mail", false -> icon only (while scrolling down)
+    var isExpanded: Bool = true
     var action: () -> Void
 
     var body: some View {
         Button(action: action) {
-            HStack(spacing: 8) {
+            HStack(spacing: 12) {
                 Image(systemName: "square.and.pencil")
-                    .font(.system(size: 16, weight: .semibold))
-//                Text("New Mail")
-                    .font(.system(size: 15, weight: .semibold))
+                    .font(.system(size: 20, weight: .regular))
+                if isExpanded {
+                    Text("New Mail")
+                        .font(.system(size: 17, weight: .regular))
+                        .lineLimit(1)
+                        .fixedSize()
+                        .transition(.opacity.combined(with: .move(edge: .trailing)))
+                }
             }
-                .foregroundColor(.white)
-            .padding(.vertical, 12)
-            .padding(.horizontal, 18)
+            .foregroundColor(.white)
+            .padding(.vertical, 16)
+            .padding(.horizontal, isExpanded ? 22 : 16)
             .background(
-                Capsule().fill(Color(hex: "#05497B"))
+                RoundedRectangle(cornerRadius: 14, style: .continuous)
+                    .fill(Color(hex: "#05497B"))
             )
-            .shadow(color: Color.black.opacity(0.25),radius: 0)
+            .shadow(color: Color.black.opacity(0.2), radius: 6, x: 0, y: 3)
         }
+        .buttonStyle(.plain)
+        .animation(.easeInOut(duration: 0.2), value: isExpanded)
     }
 }
 

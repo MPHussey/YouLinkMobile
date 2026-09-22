@@ -15,11 +15,28 @@ struct EmailView: View {
 
     @State private var showCompose = false
 
+    //compose button collapses to icon-only once the list leaves the top
+    @State private var isComposeExpanded = true
+    //on-screen y of the list top when it is not scrolled
+    @State private var scrollTopBaseline: CGFloat?
+
     private func safeAreaBottom() -> CGFloat {
         UIApplication.shared
             .connectedScenes
             .compactMap { ($0 as? UIWindowScene)?.windows.first }
             .first?.safeAreaInsets.bottom ?? 0
+    }
+
+    //full "New Mail" only at the very top of the list, icon-only anywhere below it
+    private func updateComposeButton(for listTop: CGFloat) {
+        //remember where the list starts, then work with how far it has moved from there
+        if scrollTopBaseline == nil { scrollTopBaseline = listTop }
+        let offset = listTop - (scrollTopBaseline ?? listTop)
+
+        let atTop = offset > -20
+        if isComposeExpanded != atTop {
+            isComposeExpanded = atTop
+        }
     }
 
     var body: some View {
@@ -87,6 +104,16 @@ struct EmailView: View {
                                     .padding(.leading, 20)
                             }
                         }
+                        //reports how far the list has scrolled; kept as a background of the
+                        //whole stack because LazyVStack drops children that scroll off screen
+                        .background(
+                            GeometryReader { geo in
+                                let listTop = geo.frame(in: .global).minY
+                                Color.clear
+                                    .onAppear { updateComposeButton(for: listTop) }
+                                    .onChange(of: listTop) { updateComposeButton(for: $0) }
+                            }
+                        )
                         .padding(.bottom, 80 + safeAreaBottom())
                     }
                     .refreshable { vm.fetchEmails() }
@@ -94,7 +121,7 @@ struct EmailView: View {
             }
 
             //floating "New Mail" button -> list screen only
-            NewMailButton {
+            NewMailButton(isExpanded: isComposeExpanded) {
                 showCompose = true
             }
             .padding(.trailing, 20)
