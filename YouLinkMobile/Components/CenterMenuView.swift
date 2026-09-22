@@ -54,11 +54,17 @@ struct CenterMenuView: View {
                     }
                 }
                 
+                if vm.isLoading && vm.menuData.isEmpty {
+                    ProgressView()
+                        .progressViewStyle(CircularProgressViewStyle(tint: .white))
+                        .padding(.top, 40)
+                }
+
                 ScrollView {
                     VStack(alignment: .leading, spacing: 16) {
                         ForEach(sectionOrder, id: \.key) { section in
-                            // pull out the items array
-                            if let items = vm.menuData[section.key] {
+                            // pull out the items array, skip sections the backend returns empty
+                            if let items = vm.menuData[section.key], !items.isEmpty {
                                 SectionView(
                                     title: section.title,
                                     isExpanded: Binding(
@@ -89,6 +95,9 @@ struct CenterMenuView: View {
                 Spacer()
             }
             .foregroundColor(.white)
+        }
+        .onAppear {
+            vm.getApplicationMenu()
         }
     }
 }

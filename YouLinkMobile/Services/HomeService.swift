@@ -59,5 +59,17 @@ class HomeService{
             )
         }
 
+    //get the center menu links grouped by section (applications, corporate, divisions)
+    func getApplicationMenu(
+        bodyData: Data? = nil,
+        completion:@escaping (Result<MenuData, Error>)->Void){
+            HTTPClient.shared.send(
+                endpoint: .applicationMenu,
+                bodyData: bodyData,
+                decodeTo: MenuData.self,
+                completion:completion
+            )
+        }
+
 }
 

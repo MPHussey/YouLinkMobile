@@ -20,6 +20,7 @@ enum Endpoint{
     case composeEmail
     case emailReply
     case mainCarousel
+    case applicationMenu
     
     //bind endpoint name with real endpoints
     var path:String{
@@ -35,6 +36,7 @@ enum Endpoint{
         case .composeEmail:return "YouLinkMobileAPI/api/Email/send"
         case .emailReply:return "YouLinkMobileAPI/api/Email/reply"
         case .mainCarousel:return "YouLinkMobileAPI/api/Menu/main-carousel"
+        case .applicationMenu:return "YouLinkMobileAPI/api/Menu"
         }
     }
     
@@ -58,6 +60,7 @@ enum Endpoint{
     var method:String{
         switch self{
         case .mainCarousel : return "GET"
+        case .applicationMenu : return "GET"
         default : return "POST"
         }
     }

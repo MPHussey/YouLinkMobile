@@ -35,16 +35,47 @@ struct YouLinkMobileApp: App {
 //shown briefly on launch while stored credentials are re-verified
 struct SessionLoadingView: View {
     var body: some View {
-        ZStack {
-            Color.white.ignoresSafeArea()
-            VStack(spacing: 20) {
+        GeometryReader { geo in
+            ZStack {
+                // patterned brand background, darkened towards the bottom
+                Image("splash-screen-bg")
+                    .resizable()
+                    .scaledToFill()
+                    .frame(width: geo.size.width, height: geo.size.height)
+                    .clipped()
+                
+                LinearGradient(
+                    gradient: Gradient(stops: [
+                        .init(color: Color.black.opacity(0.42), location: 0),
+                        .init(color: Color.black.opacity(0.55), location: 0.35),
+                        .init(color: Color.black.opacity(0.82), location: 0.7),
+                        .init(color: Color.black.opacity(0.97), location: 1)
+                    ]),
+                    startPoint: .top,
+                    endPoint: .bottom
+                )
+                
+                // app mark, sitting slightly above the centre like the design
                 Image("login-logo")
                     .resizable()
                     .scaledToFit()
-                    .frame(width: 90, height: 90)
-                ProgressView()
-                    .progressViewStyle(CircularProgressViewStyle(tint: Color(hex: "#176EBC")))
+                    .frame(width: geo.size.width * 0.36)
+                    .offset(y: -geo.size.height * 0.07)
+                
+                VStack(spacing: 6) {
+                    Spacer()
+                    Image("srilankan-logo-white")
+                        .resizable()
+                        .scaledToFit()
+                        .frame(width: geo.size.width * 0.52)
+                    Text("Version \(AppInfo.displayVersion)")
+                        .font(.caption2)
+                        .foregroundColor(.white.opacity(0.9))
+                }
+                .padding(.bottom, 28)
             }
+            .frame(width: geo.size.width, height: geo.size.height)
         }
+        .ignoresSafeArea()
     }
 }
