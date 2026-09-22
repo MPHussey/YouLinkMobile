@@ -14,6 +14,7 @@ struct EmailDetailView: View {
 
     @Binding var selectedTab: MainTabView.Tab
     @Environment(\.dismiss) private var dismiss
+    @Environment(\.setTabBarHidden) private var setTabBarHidden
     @StateObject private var detailVM = EmailDetailViewModel()
     @State private var didOpen = false
     @State private var showReply = false
@@ -104,20 +105,22 @@ struct EmailDetailView: View {
                     }
                 }
                 .padding(20)
-                .padding(.bottom, 120 + safeAreaBottom())
+                .padding(.bottom, 90 + safeAreaBottom())
             }
 
             //reply action
             ReplyButton {
                 showReply = true
             }
-            .padding(.bottom, 100 + safeAreaBottom())
+            .padding(.bottom, 20 + safeAreaBottom())
         }
         .background(Color(.systemGroupedBackground))
         .ignoresSafeArea(edges: [.top, .bottom])
         .navigationBarBackButtonHidden(true)
         .toolbar(.hidden, for: .navigationBar)
         .onAppear {
+            //detail has its own back button, no bottom tab bar here
+            setTabBarHidden(true)
             //mark as read once, when the email is actually opened
             if !didOpen {
                 didOpen = true

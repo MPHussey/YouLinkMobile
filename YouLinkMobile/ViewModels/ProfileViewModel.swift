@@ -20,14 +20,14 @@ class ProfileViewModel:ObservableObject{
         loggedInUserDetails?.staffNumber ?? ""
     }
     
-    /// Comes from the token once the claim is available, otherwise a placeholder.
+    /// "title" claim of the token
     var designation: String {
-        value(loggedInUserDetails?.designation) ?? "Designation"
+        value(loggedInUserDetails?.title) ?? "-"
     }
     
-    /// Comes from the token once the claim is available, otherwise a placeholder.
+    /// "mobile" claim of the token
     var contactNumber: String {
-        value(loggedInUserDetails?.contactNumber) ?? "-"
+        value(loggedInUserDetails?.mobile) ?? "-"
     }
     
     private func value(_ raw: String?) -> String? {

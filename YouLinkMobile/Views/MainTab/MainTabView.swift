@@ -12,6 +12,8 @@ struct MainTabView: View {
     @State private var selected:Tab = .home;
     @State private var isShowingCenterMenu = false;
     @State private var isViewAllFeaturesDialogboxOpen = false;
+    //pushed screens (email detail / compose) hide the bottom tab bar
+    @State private var isTabBarHidden = false
     
     var body: some View {
         ZStack{
@@ -37,12 +39,15 @@ struct MainTabView: View {
             }
             .frame(maxWidth:.infinity,maxHeight: .infinity)
 
-            VStack{
-                Spacer()
-                CustomTabBar(
-                    selected: $selected,
-                    showCenterMenu: $isShowingCenterMenu
-                )
+            if !isTabBarHidden {
+                VStack{
+                    Spacer()
+                    CustomTabBar(
+                        selected: $selected,
+                        showCenterMenu: $isShowingCenterMenu
+                    )
+                }
+                .transition(.move(edge: .bottom))
             }
             if isViewAllFeaturesDialogboxOpen{
                 Color.black.opacity(0.5)
@@ -60,12 +65,34 @@ struct MainTabView: View {
             }
         }
         .edgesIgnoringSafeArea(.bottom)
+        .environment(\.setTabBarHidden, { hidden in
+            guard isTabBarHidden != hidden else { return }
+            withAnimation(.easeInOut(duration: 0.2)) {
+                isTabBarHidden = hidden
+            }
+        })
+        //switching tabs (e.g. avatar -> profile from a detail screen) always brings the bar back
+        .onChange(of: selected) { _ in
+            isTabBarHidden = false
+        }
         .fullScreenCover(isPresented: $isShowingCenterMenu) {
             CenterMenuView(isPresented: $isShowingCenterMenu)
         }
     }
 }
 
+
+//lets a screen inside a tab show or hide the custom bottom tab bar
+private struct SetTabBarHiddenKey: EnvironmentKey {
+    static let defaultValue: (Bool) -> Void = { _ in }
+}
+
+extension EnvironmentValues {
+    var setTabBarHidden: (Bool) -> Void {
+        get { self[SetTabBarHiddenKey.self] }
+        set { self[SetTabBarHiddenKey.self] = newValue }
+    }
+}
 
 struct CustomTabBar: View {
     @Binding var selected: MainTabView.Tab

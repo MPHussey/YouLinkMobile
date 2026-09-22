@@ -14,6 +14,7 @@ struct EmailView: View {
     @Binding var showCenterMenu: Bool
 
     @State private var showCompose = false
+    @Environment(\.setTabBarHidden) private var setTabBarHidden
 
     //compose button collapses to icon-only once the list leaves the top
     @State private var isComposeExpanded = true
@@ -130,6 +131,8 @@ struct EmailView: View {
         .background(Color(.systemGroupedBackground))
         .ignoresSafeArea(edges: .top)
         .onAppear {
+            //back on the inbox list (also after popping detail / compose)
+            setTabBarHidden(false)
             if vm.emails.isEmpty {
                 vm.fetchEmails()
             }

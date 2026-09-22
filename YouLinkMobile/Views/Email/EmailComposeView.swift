@@ -13,6 +13,7 @@ struct EmailComposeView: View {
 
     @Binding var selectedTab: MainTabView.Tab
     @Environment(\.dismiss) private var dismiss
+    @Environment(\.setTabBarHidden) private var setTabBarHidden
 
     @State private var showFileImporter = false
 
@@ -86,7 +87,7 @@ struct EmailComposeView: View {
                         .padding(.top, 8)
                         .padding(.horizontal, 20)
                     }
-                    .padding(.bottom, 100 + safeAreaBottom())
+                    .padding(.bottom, 20 + safeAreaBottom())
                 }
             }
 
@@ -119,6 +120,10 @@ struct EmailComposeView: View {
             actions: { Button("OK") { vm.errorMessage = nil } },
             message: { Text(vm.errorMessage ?? "") }
         )
+        .onAppear {
+            //compose has its own back button, no bottom tab bar here
+            setTabBarHidden(true)
+        }
         .onChange(of: vm.didSend) { sent in
             if sent { dismiss() }
         }
